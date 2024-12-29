@@ -11,9 +11,21 @@
             
             document.getElementById("output").value = getPromptFromValues(
 
+                document.getElementById("breasts-thickness").value,
+                document.getElementById("belly-thickness").value,
+                document.getElementById("hips-thickness").value,
+                document.getElementById("legs-thickness").value,
+                document.getElementById("breasts-section"),
+                document.getElementById("belly-section"),
+                document.getElementById("hips-section"),
+                document.getElementById("legs-section"),
+
                 document.getElementById("aiyabot").checked,
+                document.getElementById("width").value,
+                document.getElementById("height").value,
                 document.getElementById("comments").checked,
                 document.getElementById("quality").checked,
+                
                 document.getElementById("gender").checked,
                 document.querySelector('input[name="view"]:checked').value,
                 document.querySelector('input[name="shot"]:checked').value
