@@ -7,6 +7,10 @@
 
     <script src="crafter.js"></script>
     <script>
+        function craft() {
+            document.getElementById("output").value = getPromptFromValues();
+        }
+        
         function copy() {
 
             var output = document.getElementById("output");
