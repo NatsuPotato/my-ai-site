@@ -1,31 +1,26 @@
-function getPromptFromValues() {
+function getPromptFromValues(requestAiyabot, requestComments, requestHighQuality, isMale, viewPrompt, shotPrompt) {
 
     let prompt = "";
 
-    const aiyabot = document.getElementById("aiyabot").checked;
-    const comments = !aiyabot && document.getElementById("comments").checked;
-    const quality = document.getElementById("quality").checked;
-    const isMale = document.getElementById("gender").checked;
-    const view = document.querySelector('input[name="view"]:checked').value;
-    const shot = document.querySelector('input[name="shot"]:checked').value;
+    requestComments = !requestAiyabot && requestComments;
 
-    if (aiyabot) {
+    if (requestAiyabot) {
         prompt += "/draw prompt:";
         document.getElementById("comments-section").style.display = "none";
     } else {
         document.getElementById("comments-section").style.display = "block";
     }
 
-    if (comments)
+    if (requestComments)
         prompt += "/* Quality */\n";
 
-    if (quality) {
+    if (requestHighQuality) {
         prompt += "best quality, high rating, (high rating), absurd res, high res, detailed, masterpiece, detailed face, intricate detail, sophisticated detail, exquisite detail, absurd resolution, correct anatomy, 8k, (highly detailed face), highly detailed skin texture, gorgeous, perfect hands, ";
     } else {
         prompt += "masterpiece, best quality, amazing quality, perfect hands, absurdres, 8k, ";
     }
     
-    if (comments)
+    if (requestComments)
         prompt += "\n\n/* Composition */\n";
 
     if (isMale) {
@@ -34,24 +29,24 @@ function getPromptFromValues() {
         prompt += document.getElementById("char-count").checked ? "2girls, " : "1girl, ";
     }
     
-    prompt += "(" + view + ":1.2), ";
-    prompt += shot + ", ";
+    prompt += "(" + viewPrompt + ":1.2), ";
+    prompt += shotPrompt + ", ";
     if (document.getElementById("dutch-angle").checked)
         prompt += "dutch angle, ";
 
-    if (comments)
+    if (requestComments)
         prompt += "\n\n/* Your stuff */\n";
 
     prompt += document.getElementById("description").value + ", ";
     
-    if (comments)
+    if (requestComments)
         prompt += "\n\n/* Figure */\n";
 
-    const showBreasts = shot !== "head shot" && !isMale;
-    const showBelly = shot !== "head shot";
-    const showHips = shot === "full body shot" || shot === "medium shot";
-    const includeAss = view === "side view" || view === "view from behind";
-    const showLegs = shot === "full body shot";
+    const showBreasts = shotPrompt !== "head shot" && !isMale;
+    const showBelly = shotPrompt !== "head shot";
+    const showHips = shotPrompt === "full body shot" || shotPrompt === "medium shot";
+    const includeAss = viewPrompt === "side view" || viewPrompt === "view from behind";
+    const showLegs = shotPrompt === "full body shot";
     const showAnything = showBreasts || showBelly || showHips || showLegs;
     
     if (showAnything)
@@ -92,7 +87,7 @@ function getPromptFromValues() {
     if (showAnything)
         prompt += ":1.3)";
 
-    if (aiyabot)
+    if (requestAiyabot)
         prompt += ` width:${ document.getElementById("width").value } height:${ document.getElementById("height").value }`;
 
     return prompt;
