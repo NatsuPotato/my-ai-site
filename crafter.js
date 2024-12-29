@@ -1,6 +1,7 @@
-function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, legsValue, breastsSection, bellySection, hipsSection, legsSection,
+function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, legsValue,
+                             breastsSection, bellySection, hipsSection, legsSection, commentsSection,
                              requestAiyabot = false, requestWidth = "0", requestHeight = "0", requestComments = true, requestHighQuality = false,
-                             isMale = false, viewPrompt = "front view", shotPrompt = "medium shot") {
+                             isMale = false, isTwoCharacters = false, isDutchAngle = false, viewPrompt = "front view", shotPrompt = "medium shot") {
     
     let prompt = "";
 
@@ -8,9 +9,9 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, l
 
     if (requestAiyabot) {
         prompt += "/draw prompt:";
-        document.getElementById("comments-section").style.display = "none";
+        commentsSection.style.display = "none";
     } else {
-        document.getElementById("comments-section").style.display = "block";
+        commentsSection.style.display = "block";
     }
 
     if (requestComments)
@@ -26,14 +27,14 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, l
         prompt += "\n\n/* Composition */\n";
 
     if (isMale) {
-        prompt += document.getElementById("char-count").checked ? "2boys, " : "1boy, ";
+        prompt += isTwoCharacters ? "2boys, " : "1boy, ";
     } else {
-        prompt += document.getElementById("char-count").checked ? "2girls, " : "1girl, ";
+        prompt += isTwoCharacters ? "2girls, " : "1girl, ";
     }
     
     prompt += "(" + viewPrompt + ":1.2), ";
     prompt += shotPrompt + ", ";
-    if (document.getElementById("dutch-angle").checked)
+    if (isDutchAngle)
         prompt += "dutch angle, ";
 
     if (requestComments)
