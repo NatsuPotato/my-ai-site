@@ -1,5 +1,7 @@
-function getPromptFromValues(requestAiyabot, requestComments, requestHighQuality, isMale, viewPrompt, shotPrompt) {
-
+function getPromptFromValues(breastsValue, bellyValue, hipsValue, legsValue, breastsSection, bellySection, hipsSection, legsSection,
+                             requestAiyabot, requestWidth, requestHeight, requestComments, requestHighQuality,
+                             isMale, viewPrompt, shotPrompt) {
+    
     let prompt = "";
 
     requestComments = !requestAiyabot && requestComments;
@@ -53,10 +55,10 @@ function getPromptFromValues(requestAiyabot, requestComments, requestHighQuality
         prompt += "(";
     
     if (showBreasts) {
-        prompt += constructBreastsPrompt(document.getElementById("breasts-thickness").value);
-        document.getElementById("breasts-section").style.display = "table-row";
+        prompt += constructBreastsPrompt(breastsValue);
+        breastsSection.style.display = "table-row";
     } else {
-        document.getElementById("breasts-section").style.display = "none";
+        breastsSection.style.display = "none";
     }
 
     if (showBelly) {
@@ -64,31 +66,31 @@ function getPromptFromValues(requestAiyabot, requestComments, requestHighQuality
         if (showBreasts)
             prompt += ", ";
         
-        prompt += constructBellyPrompt(document.getElementById("belly-thickness").value);
-        document.getElementById("belly-section").style.display = "table-row";
+        prompt += constructBellyPrompt(bellyValue);
+        bellySection.style.display = "table-row";
     } else {
-        document.getElementById("belly-section").style.display = "none";
+        bellySection.style.display = "none";
     }
     
     if (showHips) {
-        prompt += ", " + constructHipsPrompt(document.getElementById("hips-thickness").value, includeAss);
-        document.getElementById("hips-section").style.display = "table-row";
+        prompt += ", " + constructHipsPrompt(hipsValue, includeAss);
+        hipsSection.style.display = "table-row";
     } else {
-        document.getElementById("hips-section").style.display = "none";
+        hipsSection.style.display = "none";
     }
 
     if (showLegs) {
-        prompt += ", " + constructLegsPrompt(document.getElementById("legs-thickness").value);
-        document.getElementById("legs-section").style.display = "table-row";
+        prompt += ", " + constructLegsPrompt(legsValue);
+        legsSection.style.display = "table-row";
     } else {
-        document.getElementById("legs-section").style.display = "none";
+        legsSection.style.display = "none";
     }
 
     if (showAnything)
         prompt += ":1.3)";
 
     if (requestAiyabot)
-        prompt += ` width:${ document.getElementById("width").value } height:${ document.getElementById("height").value }`;
+        prompt += ` width:${ requestWidth } height:${ requestHeight }`;
 
     return prompt;
 }
