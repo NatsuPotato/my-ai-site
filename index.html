@@ -8,7 +8,16 @@
     <script src="crafter.js"></script>
     <script>
         function craft() {
-            document.getElementById("output").value = getPromptFromValues();
+            
+            document.getElementById("output").value = getPromptFromValues(
+
+                document.getElementById("aiyabot").checked,
+                document.getElementById("comments").checked,
+                document.getElementById("quality").checked,
+                document.getElementById("gender").checked,
+                document.querySelector('input[name="view"]:checked').value,
+                document.querySelector('input[name="shot"]:checked').value
+            );
         }
         
         function copy() {
