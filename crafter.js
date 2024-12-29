@@ -67,7 +67,7 @@ function constructLegsPrompt(value) {
     return extra + getSize(value) + " calves";
 }
 
-function craft() {
+function getPromptFromValues() {
 
     const output = document.getElementById("output");
     output.value = "";
