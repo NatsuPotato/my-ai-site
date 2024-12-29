@@ -1,6 +1,6 @@
-function getPromptFromValues(breastsValue, bellyValue, hipsValue, legsValue, breastsSection, bellySection, hipsSection, legsSection,
-                             requestAiyabot, requestWidth, requestHeight, requestComments, requestHighQuality,
-                             isMale, viewPrompt, shotPrompt) {
+function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, legsValue, breastsSection, bellySection, hipsSection, legsSection,
+                             requestAiyabot = false, requestWidth = "0", requestHeight = "0", requestComments = true, requestHighQuality = false,
+                             isMale = false, viewPrompt = "front view", shotPrompt = "medium shot") {
     
     let prompt = "";
 
@@ -37,9 +37,9 @@ function getPromptFromValues(breastsValue, bellyValue, hipsValue, legsValue, bre
         prompt += "dutch angle, ";
 
     if (requestComments)
-        prompt += "\n\n/* Your stuff */\n";
+        prompt += "\n\n/* Character/scene description */\n";
 
-    prompt += document.getElementById("description").value + ", ";
+    prompt += description + ", ";
     
     if (requestComments)
         prompt += "\n\n/* Figure */\n";
