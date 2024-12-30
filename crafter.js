@@ -20,7 +20,7 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, l
     
     if (requestComments)
         prompt += "\n\n/* Composition */\n";
-    prompt += constructCompositionPrompt(isMale, isDutchAngle, viewPrompt, shotPrompt) + ", ";
+    prompt += constructCompositionPrompt(isMale, isTwoCharacters, isDutchAngle, viewPrompt, shotPrompt) + ", ";
 
     if (requestComments)
         prompt += "\n\n/* Character/scene description */\n";
@@ -52,7 +52,7 @@ function constructQualityPrompt(isHighQuality) {
     }
 }
 
-function constructCompositionPrompt(isMale, isDutchAngle, viewPrompt, shotPrompt) {
+function constructCompositionPrompt(isMale, isTwoCharacters, isDutchAngle, viewPrompt, shotPrompt) {
 
     let construct = "";
     
