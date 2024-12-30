@@ -32,7 +32,7 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, l
         prompt += isTwoCharacters ? "2girls, " : "1girl, ";
     }
     
-    prompt += "(" + viewPrompt + ":1.2), ";
+    prompt += "(" + viewPrompt + ":1.3), ";
     prompt += shotPrompt + ", ";
     if (isDutchAngle)
         prompt += "dutch angle, ";
@@ -132,7 +132,7 @@ function constructBellyPrompt(value, viewPrompt) {
         return "chubby";
 
     if (viewPrompt === "view from behind")
-        return getSize(value) + " back";
+        return getSize(value) + " belly from behind";
 
     let extra = "";
 
