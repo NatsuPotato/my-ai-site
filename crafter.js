@@ -115,10 +115,10 @@ function getSize(value) {
 function constructBreastsPrompt(value, viewPrompt) {
 
     if (value == 1)
-        return "flat chest";
+        return "flat chest"; // "no breasts"?
 
     if (viewPrompt === "view from behind")
-        return getSize(value) + "breasts from behind";
+        return getSize(value) + " breasts from behind";
 
     return getSize(value) + " breasts";
 }
