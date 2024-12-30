@@ -1,18 +1,22 @@
 function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, legsValue,
-                             breastsSection, bellySection, hipsSection, legsSection, commentsSection,
                              requestAiyabot = false, requestWidth = "0", requestHeight = "0", requestComments = true, requestHighQuality = false,
                              isMale = false, isTwoCharacters = false, isDutchAngle = false, viewPrompt = "front view", shotPrompt = "medium shot") {
     
     let prompt = "";
 
+    let promptInfo = {
+        prompt: "",
+        showBreasts:  shotPrompt !== "head shot" && !isMale,
+        showBelly:    shotPrompt !== "head shot",
+        showHips:     shotPrompt === "full body shot" || shotPrompt === "medium shot",
+        showLegs:     shotPrompt === "full body shot",
+        showComments: !requestAiyabot
+    };
+
     requestComments = !requestAiyabot && requestComments;
 
-    if (requestAiyabot) {
+    if (requestAiyabot)
         prompt += "/draw prompt:";
-        commentsSection.style.display = "none";
-    } else {
-        commentsSection.style.display = "block";
-    }
 
     if (requestComments)
         prompt += "/* Quality */\n";
@@ -29,17 +33,19 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, l
     if (requestComments)
         prompt += "\n\n/* Figure */\n";
     prompt += constructFigurePrompt(
-        shotPrompt !== "head shot" && !isMale,                           breastsValue, breastsSection,
-        shotPrompt !== "head shot",                                      bellyValue,   bellySection,
-        shotPrompt === "full body shot" || shotPrompt === "medium shot", hipsValue,    hipsSection,
-        shotPrompt === "full body shot",                                 legsValue,    legsSection,
+        promptInfo.showBreasts, breastsValue,
+        promptInfo.showBelly,   bellyValue,
+        promptInfo.showHips,    hipsValue,
+        promptInfo.showLegs,    legsValue,
         viewPrompt
     );
 
     if (requestAiyabot)
         prompt += ` width:${ requestWidth } height:${ requestHeight }`;
 
-    return prompt;
+    promptInfo.prompt = prompt;
+    
+    return promptInfo;
 }
 
 
@@ -72,25 +78,19 @@ function constructCompositionPrompt(isMale, isTwoCharacters, isDutchAngle, viewP
 }
 
 function constructFigurePrompt(
-        showBreasts, breastsValue, breastsSection,
-        showBelly,   bellyValue,   bellySection,
-        showHips,    hipsValue,    hipsSection,
-        showLegs,    legsValue,    legsSection,
+        showBreasts, breastsValue,
+        showBelly,   bellyValue,
+        showHips,    hipsValue,
+        showLegs,    legsValue,
         viewPrompt
     ) {
     
     if (showBreasts || showBelly || showHips || showLegs) {
 
-        let construct = "";
-    
-        construct += "(";
+        let construct = "(";
         
-        if (showBreasts) {
+        if (showBreasts)
             construct += constructBreastsPrompt(breastsValue, viewPrompt);
-            breastsSection.style.display = "table-row";
-        } else {
-            breastsSection.style.display = "none";
-        }
     
         if (showBelly) {
     
@@ -98,24 +98,13 @@ function constructFigurePrompt(
                 construct += ", ";
             
             construct += constructBellyPrompt(bellyValue, viewPrompt);
-            bellySection.style.display = "table-row";
-        } else {
-            bellySection.style.display = "none";
         }
         
-        if (showHips) {
+        if (showHips)
             construct += ", " + constructHipsPrompt(hipsValue, viewPrompt);
-            hipsSection.style.display = "table-row";
-        } else {
-            hipsSection.style.display = "none";
-        }
     
-        if (showLegs) {
+        if (showLegs)
             construct += ", " + constructLegsPrompt(legsValue, viewPrompt);
-            legsSection.style.display = "table-row";
-        } else {
-            legsSection.style.display = "none";
-        }
     
         construct += ":1.3)";
 
