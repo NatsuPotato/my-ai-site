@@ -6,11 +6,11 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, l
 
     let promptInfo = {
         prompt: "",
-        showBreasts:  shotPrompt !== "head shot" && !isMale,
-        showBelly:    shotPrompt !== "head shot",
-        showHips:     shotPrompt === "full body shot" || shotPrompt === "medium shot",
-        showLegs:     shotPrompt === "full body shot",
-        showComments: !requestAiyabot
+        consideredBreasts:  shotPrompt !== "head shot" && !isMale,
+        consideredBelly:    shotPrompt !== "head shot",
+        consideredHips:     shotPrompt === "full body shot" || shotPrompt === "medium shot",
+        consideredLegs:     shotPrompt === "full body shot",
+        consideredComments: !requestAiyabot
     };
 
     requestComments = !requestAiyabot && requestComments;
@@ -33,10 +33,10 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, l
     if (requestComments)
         prompt += "\n\n/* Figure */\n";
     prompt += constructFigurePrompt(
-        promptInfo.showBreasts, breastsValue,
-        promptInfo.showBelly,   bellyValue,
-        promptInfo.showHips,    hipsValue,
-        promptInfo.showLegs,    legsValue,
+        promptInfo.consideredBreasts, breastsValue,
+        promptInfo.consideredBelly,   bellyValue,
+        promptInfo.consideredHips,    hipsValue,
+        promptInfo.consideredLegs,    legsValue,
         viewPrompt
     );
 
