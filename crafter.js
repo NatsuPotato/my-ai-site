@@ -87,7 +87,7 @@ function constructFigurePrompt(
     
     if (showBreasts || showBelly || showHips || showLegs) {
 
-        let construct = "(";
+        let construct = "";
         
         if (showBreasts)
             construct += constructBreastsPrompt(breastsValue, viewPrompt);
@@ -105,8 +105,6 @@ function constructFigurePrompt(
     
         if (showLegs)
             construct += ", " + constructLegsPrompt(legsValue, viewPrompt);
-    
-        construct += ":1.3)";
 
         return construct;
         
@@ -137,24 +135,24 @@ function getSize(value) {
 function constructBreastsPrompt(value, viewPrompt) {
 
     if (value == 1)
-        return "flat chest"; // "no breasts"?
+        return "(flat chest)"; // "no breasts"?
 
     if (viewPrompt === "view from behind")
-        return getSize(value) + " breasts from behind";
+        return "(" + getSize(value) + " breasts from behind:1.3)";
 
-    return getSize(value) + " breasts";
+    return "(" + getSize(value) + " breasts" + (viewPrompt === "view from behind" ? ")" : ":1.3)");
 }
 
 function constructBellyPrompt(value, viewPrompt) {
 
     if (value == 1)
-        return "slim"; // "no belly, hourglass figure, narrow waist"
+        return "(slim)"; // "no belly, hourglass figure, narrow waist"
     
     if (value < 16)
-        return "chubby";
+        return "(chubby)";
 
     if (viewPrompt === "view from behind")
-        return getSize(value) + " belly from behind";
+        return "(" + getSize(value) + " belly from behind:1.3)";
 
     let extra = "";
 
@@ -162,7 +160,7 @@ function constructBellyPrompt(value, viewPrompt) {
         extra += "belly sticking out, round belly, ";
     }
     
-    return extra + getSize(value) + " belly";
+    return "(" + extra + getSize(value) + " belly" + (viewPrompt === "view from behind" ? ")" : ":1.3)");
 }
 
 function constructHipsPrompt(value, viewPrompt) {
@@ -175,13 +173,13 @@ function constructHipsPrompt(value, viewPrompt) {
     if (viewPrompt === "side view" || viewPrompt === "view from behind")
         extra += getSize(value) + " ass, ";
     
-    return extra + getSize(value) + " hips";
+    return "(" + extra + getSize(value) + " hips" + (viewPrompt === "view from behind" ? ":1.6)" : ":1.3)");
 }
 
 function constructLegsPrompt(value, viewPrompt) {
 
     if (value == 1)
-        return "slender legs";
+        return "(slender legs)";
 
     let extra = "";
 
@@ -189,5 +187,5 @@ function constructLegsPrompt(value, viewPrompt) {
         extra += "(fat legs, fat knees, fat calves:1." + parseInt(value / 10 - 5) + "), ";
     }
     
-    return extra + getSize(value) + " calves";
+    return "(" + extra + getSize(value) + " calves:1.3)";
 }
