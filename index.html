@@ -9,19 +9,13 @@
     <script>
         function craft() {
             
-            document.getElementById("output").value = getPromptFromValues(
+            const promptInfo = getPromptFromValues(
 
                 document.getElementById("description").value,
                 document.getElementById("breasts-thickness").value,
                 document.getElementById("belly-thickness").value,
                 document.getElementById("hips-thickness").value,
                 document.getElementById("legs-thickness").value,
-                
-                document.getElementById("breasts-section"),
-                document.getElementById("belly-section"),
-                document.getElementById("hips-section"),
-                document.getElementById("legs-section"),
-                document.getElementById("comments-section"),
 
                 document.getElementById("aiyabot").checked,
                 document.getElementById("width").value,
@@ -35,6 +29,14 @@
                 document.querySelector('input[name="view"]:checked').value,
                 document.querySelector('input[name="shot"]:checked').value
             );
+
+            document.getElementById("output").value = promptInfo.prompt;
+
+            document.getElementById("breasts-section").style.display  = promptInfo.consideredBreasts ? "table-row" : "none";
+            document.getElementById("belly-section").style.display    = promptInfo.consideredBelly ? "table-row" : "none";
+            document.getElementById("hips-section").style.display     = promptInfo.consideredHips ? "table-row" : "none";
+            document.getElementById("legs-section").style.display     = promptInfo.consideredLegs ? "table-row" : "none";
+            document.getElementById("comments-section").style.display = promptInfo.consideredComments ? "block" : "none";
         }
         
         function copy() {
