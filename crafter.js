@@ -16,84 +16,117 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, l
 
     if (requestComments)
         prompt += "/* Quality */\n";
-
-    if (requestHighQuality) {
-        prompt += "best quality, high rating, (high rating), absurd res, high res, detailed, masterpiece, detailed face, intricate detail, sophisticated detail, exquisite detail, absurd resolution, correct anatomy, 8k, (highly detailed face), highly detailed skin texture, gorgeous, perfect hands, ";
-    } else {
-        prompt += "masterpiece, best quality, amazing quality, perfect hands, absurdres, 8k, ";
-    }
+    prompt += constructQualityPrompt(requestHighQuality) + ", ";
     
     if (requestComments)
         prompt += "\n\n/* Composition */\n";
-
-    if (isMale) {
-        prompt += isTwoCharacters ? "2boys, " : "1boy, ";
-    } else {
-        prompt += isTwoCharacters ? "2girls, " : "1girl, ";
-    }
-    
-    prompt += "(" + viewPrompt + ":1.3), ";
-    prompt += shotPrompt + ", ";
-    if (isDutchAngle)
-        prompt += "dutch angle, ";
+    prompt += constructCompositionPrompt(isMale, isDutchAngle, viewPrompt, shotPrompt) + ", ";
 
     if (requestComments)
         prompt += "\n\n/* Character/scene description */\n";
-
     prompt += description + ", ";
     
     if (requestComments)
         prompt += "\n\n/* Figure */\n";
-
-    const showBreasts = shotPrompt !== "head shot" && !isMale;
-    const showBelly = shotPrompt !== "head shot";
-    const showHips = shotPrompt === "full body shot" || shotPrompt === "medium shot";
-    const showLegs = shotPrompt === "full body shot";
-    const showAnything = showBreasts || showBelly || showHips || showLegs;
-    
-    if (showAnything)
-        prompt += "(";
-    
-    if (showBreasts) {
-        prompt += constructBreastsPrompt(breastsValue, viewPrompt);
-        breastsSection.style.display = "table-row";
-    } else {
-        breastsSection.style.display = "none";
-    }
-
-    if (showBelly) {
-
-        if (showBreasts)
-            prompt += ", ";
-        
-        prompt += constructBellyPrompt(bellyValue, viewPrompt);
-        bellySection.style.display = "table-row";
-    } else {
-        bellySection.style.display = "none";
-    }
-    
-    if (showHips) {
-        prompt += ", " + constructHipsPrompt(hipsValue, viewPrompt);
-        hipsSection.style.display = "table-row";
-    } else {
-        hipsSection.style.display = "none";
-    }
-
-    if (showLegs) {
-        prompt += ", " + constructLegsPrompt(legsValue, viewPrompt);
-        legsSection.style.display = "table-row";
-    } else {
-        legsSection.style.display = "none";
-    }
-
-    if (showAnything)
-        prompt += ":1.3)";
+    prompt += constructFigurePrompt(
+        shotPrompt !== "head shot" && !isMale,                           breastsValue, breastsSection,
+        shotPrompt !== "head shot",                                      bellyValue,   bellySection,
+        shotPrompt === "full body shot" || shotPrompt === "medium shot", hipsValue,    hipsSection,
+        shotPrompt === "full body shot",                                 legsValue,    legsSection,
+        viewPrompt
+    );
 
     if (requestAiyabot)
         prompt += ` width:${ requestWidth } height:${ requestHeight }`;
 
     return prompt;
 }
+
+
+function constructQualityPrompt(isHighQuality) {
+
+    if (isHighQuality) {
+        return "best quality, high rating, (high rating), absurd res, high res, detailed, masterpiece, detailed face, intricate detail, sophisticated detail, exquisite detail, absurd resolution, correct anatomy, 8k, (highly detailed face), highly detailed skin texture, gorgeous, perfect hands";
+    } else {
+        return "masterpiece, best quality, amazing quality, perfect hands, absurdres, 8k";
+    }
+}
+
+function constructCompositionPrompt(isMale, isDutchAngle, viewPrompt, shotPrompt) {
+
+    let construct = "";
+    
+    if (isMale) {
+        construct += isTwoCharacters ? "2boys" : "1boy";
+    } else {
+        construct += isTwoCharacters ? "2girls" : "1girl";
+    }
+    
+    construct += ", (" + viewPrompt + ":1.3)";
+    construct += ", " + shotPrompt;
+    
+    if (isDutchAngle)
+        construct += ", dutch angle";
+
+    return construct;
+}
+
+function constructFigurePrompt(
+        showBreasts, breastsValue, breastsSection,
+        showBelly,   bellyValue,   bellySection,
+        showHips,    hipsValue,    hipsSection,
+        showLegs,    legsValue,    legsSection,
+        viewPrompt
+    ) {
+    
+    if (showBreasts || showBelly || showHips || showLegs) {
+
+        let construct = "";
+    
+        construct += "(";
+        
+        if (showBreasts) {
+            construct += constructBreastsPrompt(breastsValue, viewPrompt);
+            breastsSection.style.display = "table-row";
+        } else {
+            breastsSection.style.display = "none";
+        }
+    
+        if (showBelly) {
+    
+            if (showBreasts)
+                construct += ", ";
+            
+            construct += constructBellyPrompt(bellyValue, viewPrompt);
+            bellySection.style.display = "table-row";
+        } else {
+            bellySection.style.display = "none";
+        }
+        
+        if (showHips) {
+            construct += ", " + constructHipsPrompt(hipsValue, viewPrompt);
+            hipsSection.style.display = "table-row";
+        } else {
+            hipsSection.style.display = "none";
+        }
+    
+        if (showLegs) {
+            construct += ", " + constructLegsPrompt(legsValue, viewPrompt);
+            legsSection.style.display = "table-row";
+        } else {
+            legsSection.style.display = "none";
+        }
+    
+        construct += ":1.3)";
+
+        return construct;
+        
+    } else {
+        
+        return "";
+    }
+}
+
 
 
 // const artists = [
