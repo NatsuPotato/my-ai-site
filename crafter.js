@@ -138,9 +138,9 @@ function constructBreastsPrompt(value, viewPrompt) {
         return "(flat chest)"; // "no breasts"?
 
     if (viewPrompt === "view from behind")
-        return "(" + getSize(value) + " breasts from behind:1.3)";
+        return "(" + getSize(value) + " breasts from behind)";
 
-    return "(" + getSize(value) + " breasts" + (viewPrompt === "view from behind" ? ")" : ":1.3)");
+    return "(" + getSize(value) + " breasts:1.3)";
 }
 
 function constructBellyPrompt(value, viewPrompt) {
@@ -152,7 +152,7 @@ function constructBellyPrompt(value, viewPrompt) {
         return "(chubby)";
 
     if (viewPrompt === "view from behind")
-        return "(" + getSize(value) + " belly from behind:1.3)";
+        return "(" + getSize(value) + " belly from behind)";
 
     let extra = "";
 
@@ -160,7 +160,7 @@ function constructBellyPrompt(value, viewPrompt) {
         extra += "belly sticking out, round belly, ";
     }
     
-    return "(" + extra + getSize(value) + " belly" + (viewPrompt === "view from behind" ? ")" : ":1.3)");
+    return "(" + extra + getSize(value) + " belly:1.3)";
 }
 
 function constructHipsPrompt(value, viewPrompt) {
