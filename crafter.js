@@ -48,7 +48,6 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, l
     const showBreasts = shotPrompt !== "head shot" && !isMale;
     const showBelly = shotPrompt !== "head shot";
     const showHips = shotPrompt === "full body shot" || shotPrompt === "medium shot";
-    const includeAss = viewPrompt === "side view" || viewPrompt === "view from behind";
     const showLegs = shotPrompt === "full body shot";
     const showAnything = showBreasts || showBelly || showHips || showLegs;
     
@@ -56,7 +55,7 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, l
         prompt += "(";
     
     if (showBreasts) {
-        prompt += constructBreastsPrompt(breastsValue);
+        prompt += constructBreastsPrompt(breastsValue, viewPrompt);
         breastsSection.style.display = "table-row";
     } else {
         breastsSection.style.display = "none";
@@ -67,21 +66,21 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, l
         if (showBreasts)
             prompt += ", ";
         
-        prompt += constructBellyPrompt(bellyValue);
+        prompt += constructBellyPrompt(bellyValue, viewPrompt);
         bellySection.style.display = "table-row";
     } else {
         bellySection.style.display = "none";
     }
     
     if (showHips) {
-        prompt += ", " + constructHipsPrompt(hipsValue, includeAss);
+        prompt += ", " + constructHipsPrompt(hipsValue, viewPrompt);
         hipsSection.style.display = "table-row";
     } else {
         hipsSection.style.display = "none";
     }
 
     if (showLegs) {
-        prompt += ", " + constructLegsPrompt(legsValue);
+        prompt += ", " + constructLegsPrompt(legsValue, viewPrompt);
         legsSection.style.display = "table-row";
     } else {
         legsSection.style.display = "none";
@@ -113,21 +112,27 @@ function getSize(value) {
 }
 
 // value is in range [1, 100]
-function constructBreastsPrompt(value) {
+function constructBreastsPrompt(value, viewPrompt) {
 
     if (value == 1)
         return "flat chest";
 
+    if (viewPrompt === "view from behind")
+        return getSize(value) + "breasts from behind";
+
     return getSize(value) + " breasts";
 }
 
-function constructBellyPrompt(value) {
+function constructBellyPrompt(value, viewPrompt) {
 
     if (value == 1)
-        return "slim"; // no belly, hourglass figure, narrow waist
+        return "slim"; // "no belly, hourglass figure, narrow waist"
     
     if (value < 16)
         return "chubby";
+
+    if (viewPrompt === "view from behind")
+        return getSize(value) + " back";
 
     let extra = "";
 
@@ -138,24 +143,23 @@ function constructBellyPrompt(value) {
     return extra + getSize(value) + " belly";
 }
 
-function constructHipsPrompt(value, includeAss) {
+function constructHipsPrompt(value, viewPrompt) {
 
     let extra = "";
 
-    if (value > 50)
+    if (value > 50 && viewPrompt !== "view from behind")
         extra += "(thick thighs:1." + parseInt(value / 10 - 5) + "), ";
 
-    if (includeAss)
+    if (viewPrompt === "side view" || viewPrompt === "view from behind")
         extra += getSize(value) + " ass, ";
     
     return extra + getSize(value) + " hips";
 }
 
-function constructLegsPrompt(value) {
+function constructLegsPrompt(value, viewPrompt) {
 
-    if (value == 1) {
+    if (value == 1)
         return "slender legs";
-    }
 
     let extra = "";
 
