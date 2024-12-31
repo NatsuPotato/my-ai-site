@@ -15,7 +15,6 @@
                 document.getElementById("breasts-thickness").value,
                 document.getElementById("belly-thickness").value,
                 document.getElementById("hips-thickness").value,
-                document.getElementById("legs-thickness").value,
 
                 document.getElementById("aiyabot").checked,
                 document.getElementById("width").value,
@@ -35,7 +34,6 @@
             document.getElementById("breasts-section").style.display  = promptInfo.consideredBreasts ? "table-row" : "none";
             document.getElementById("belly-section").style.display    = promptInfo.consideredBelly ? "table-row" : "none";
             document.getElementById("hips-section").style.display     = promptInfo.consideredHips ? "table-row" : "none";
-            document.getElementById("legs-section").style.display     = promptInfo.consideredLegs ? "table-row" : "none";
             document.getElementById("comments-section").style.display = promptInfo.consideredComments ? "block" : "none";
         }
         
@@ -198,12 +196,6 @@
                 <td>Hips:</td>
                 <td>
                     <input id="hips-thickness" type="range" min="1" max="100" value="20" oninput="craft()">
-                </td>
-            </tr>
-            <tr id="legs-section">
-                <td>Legs:</td>
-                <td>
-                    <input id="legs-thickness" type="range" min="1" max="100" value="20" oninput="craft()">
                 </td>
             </tr>
         </table>
