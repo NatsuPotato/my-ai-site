@@ -1,4 +1,4 @@
-function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, legsValue,
+function getPromptFromValues(description, breastsValue, bellyValue, hipsValue,
                              requestAiyabot = false, requestWidth = "0", requestHeight = "0", requestComments = true, requestHighQuality = false,
                              isMale = false, isTwoCharacters = false, isDutchAngle = false, viewPrompt = "front view", shotPrompt = "medium shot") {
     
@@ -9,7 +9,6 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, l
         consideredBreasts:  shotPrompt !== "head shot" && !isMale,
         consideredBelly:    shotPrompt !== "head shot",
         consideredHips:     shotPrompt === "full body shot" || shotPrompt === "medium shot",
-        consideredLegs:     shotPrompt === "full body shot",
         consideredComments: !requestAiyabot
     };
 
@@ -36,7 +35,6 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue, l
         promptInfo.consideredBreasts, breastsValue,
         promptInfo.consideredBelly,   bellyValue,
         promptInfo.consideredHips,    hipsValue,
-        promptInfo.consideredLegs,    legsValue,
         viewPrompt
     );
 
@@ -81,11 +79,10 @@ function constructFigurePrompt(
         showBreasts, breastsValue,
         showBelly,   bellyValue,
         showHips,    hipsValue,
-        showLegs,    legsValue,
         viewPrompt
     ) {
     
-    if (showBreasts || showBelly || showHips || showLegs) {
+    if (showBreasts || showBelly || showHips) {
 
         let construct = "";
         
@@ -102,9 +99,6 @@ function constructFigurePrompt(
         
         if (showHips)
             construct += ", " + constructHipsPrompt(hipsValue, viewPrompt);
-    
-        if (showLegs)
-            construct += ", " + constructLegsPrompt(legsValue, viewPrompt);
 
         return construct;
         
@@ -174,18 +168,4 @@ function constructHipsPrompt(value, viewPrompt) {
         extra += getSize(value) + " ass, ";
     
     return "(" + extra + getSize(value) + " hips" + (viewPrompt === "view from behind" ? ":1.6)" : ":1.3)");
-}
-
-function constructLegsPrompt(value, viewPrompt) {
-
-    if (value == 1)
-        return "(slender legs)";
-
-    let extra = "";
-
-    if (value > 50) {
-        extra += "(fat legs, fat knees, fat calves:1." + parseInt(value / 10 - 5) + "), ";
-    }
-    
-    return "(" + extra + getSize(value) + " calves:1.3)";
 }
