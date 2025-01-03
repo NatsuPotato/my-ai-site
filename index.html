@@ -19,6 +19,7 @@
                 document.getElementById("aiyabot").checked,
                 document.getElementById("width").value,
                 document.getElementById("height").value,
+                document.getElementById("negatives").checked,
                 document.getElementById("comments").checked,
                 document.getElementById("quality").checked,
                 
@@ -31,10 +32,11 @@
 
             document.getElementById("output").value = promptInfo.prompt;
 
-            document.getElementById("breasts-section").style.display  = promptInfo.consideredBreasts ? "table-row" : "none";
-            document.getElementById("belly-section").style.display    = promptInfo.consideredBelly ? "table-row" : "none";
-            document.getElementById("hips-section").style.display     = promptInfo.consideredHips ? "table-row" : "none";
-            document.getElementById("comments-section").style.display = promptInfo.consideredComments ? "block" : "none";
+            document.getElementById("breasts-section").style.display   = promptInfo.consideredBreasts ? "table-row" : "none";
+            document.getElementById("belly-section").style.display     = promptInfo.consideredBelly ? "table-row" : "none";
+            document.getElementById("hips-section").style.display      = promptInfo.consideredHips ? "table-row" : "none";
+            document.getElementById("comments-section").style.display  = promptInfo.consideredComments ? "block" : "none";
+            document.getElementById("negatives-section").style.display = document.getElementById("aiyabot").checked ? "block" : "none";
         }
         
         function copy() {
@@ -108,6 +110,14 @@
             and
             <label for="height">height:</label>
             <input type="text" oninput="craft()" value="800" id="height">
+        </p>
+
+        <p id="negatives-section" style="padding-left: 1em;">
+            <label class="switch">
+                <input type="checkbox" id="negatives" oninput="craft()" checked>
+                <span class="slider"></span>
+            </label>
+            Include negative prompt
         </p>
         
         <p id="comments-section">
