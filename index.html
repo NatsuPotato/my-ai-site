@@ -7,6 +7,15 @@
 
     <script src="crafter.js"></script>
     <script>
+        function setEnabled(element, isEnabled) {
+
+            if (isEnabled) {
+                element.classList.remove("disabled");
+            } else {
+                element.classList.add("disabled");
+            }
+        }
+        
         function craft() {
             
             const promptInfo = getPromptFromValues(
@@ -32,11 +41,11 @@
 
             document.getElementById("output").value = promptInfo.prompt;
 
-            document.getElementById("breasts-section").style.display   = promptInfo.consideredBreasts ? "table-row" : "none";
-            document.getElementById("belly-section").style.display     = promptInfo.consideredBelly ? "table-row" : "none";
-            document.getElementById("hips-section").style.display      = promptInfo.consideredHips ? "table-row" : "none";
-            document.getElementById("comments-section").style.display  = promptInfo.consideredComments ? "block" : "none";
-            document.getElementById("negatives-section").style.display = document.getElementById("aiyabot").checked ? "block" : "none";
+            setEnabled(document.getElementById("breasts-section"),   promptInfo.consideredBreasts);
+            setEnabled(document.getElementById("belly-section"),     promptInfo.consideredBelly);
+            setEnabled(document.getElementById("hips-section"),      promptInfo.consideredHips);
+            setEnabled(document.getElementById("comments-section"),  promptInfo.consideredComments);
+            setEnabled(document.getElementById("negatives-section"), document.getElementById("aiyabot").checked);
         }
         
         function copy() {
@@ -69,6 +78,8 @@
 
         input[type="range"]        { cursor: grab; }
         input[type="range"]:active { cursor: grabbing; }
+
+        .disabled { color: grey; text-decoration: line-through; }
         
         /* stole this from w3schools */
         .switch { cursor: pointer; position: relative; display: inline-block; width: 40px; height: 20px; vertical-align: middle; }
