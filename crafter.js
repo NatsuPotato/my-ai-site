@@ -1,5 +1,5 @@
 function getPromptFromValues(description, breastsValue, bellyValue, hipsValue,
-                             requestAiyabot = false, requestWidth = "0", requestHeight = "0", requestComments = true, requestHighQuality = false,
+                             requestAiyabot = false, requestWidth = "0", requestHeight = "0", requestNegatives = false, requestComments = true, requestHighQuality = false,
                              isMale = false, isTwoCharacters = false, isDutchAngle = false, viewPrompt = "front view", shotPrompt = "medium shot") {
     
     let prompt = "";
@@ -38,8 +38,13 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue,
         viewPrompt
     );
 
-    if (requestAiyabot)
+    if (requestAiyabot) {
+
+        if (requestNegatives)
+            prompt += " negative_prompt:(ugly), ((watermark)), ((mutilated)), out of frame, extra fingers, extra limbs, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), ((mutation)), ((deformed)), blurry, (bad anatomy), (bad proportions), (extra limbs), (disfigured), (malformed limbs), ((missing arms)), ((missing legs)), ((extra arms)), ((extra legs)), (fused fingers), (too many fingers), (long neck), bad_eyes, poorly_drawn_eyes";
+      
         prompt += ` width:${ requestWidth } height:${ requestHeight }`;
+    }
 
     promptInfo.prompt = prompt;
     
