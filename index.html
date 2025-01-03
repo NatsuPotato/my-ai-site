@@ -45,7 +45,7 @@
             setEnabled(document.getElementById("belly-section"),     promptInfo.consideredBelly);
             setEnabled(document.getElementById("hips-section"),      promptInfo.consideredHips);
             setEnabled(document.getElementById("comments-section"),  promptInfo.consideredComments);
-            setEnabled(document.getElementById("negatives-section"), document.getElementById("aiyabot").checked);
+            setEnabled(document.getElementById("negatives-section"), promptInfo.consideredNegatives);
         }
         
         function copy() {
