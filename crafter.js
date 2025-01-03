@@ -6,10 +6,11 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue,
 
     let promptInfo = {
         prompt: "",
-        consideredBreasts:  shotPrompt !== "head shot" && !isMale,
-        consideredBelly:    shotPrompt !== "head shot",
-        consideredHips:     shotPrompt === "full body shot" || shotPrompt === "medium shot",
-        consideredComments: !requestAiyabot
+        consideredBreasts:   shotPrompt !== "head shot" && !isMale,
+        consideredBelly:     shotPrompt !== "head shot",
+        consideredHips:      shotPrompt === "full body shot" || shotPrompt === "medium shot",
+        consideredComments:  !requestAiyabot,
+        consideredNegatives: requestAiyabot
     };
 
     requestComments = !requestAiyabot && requestComments;
