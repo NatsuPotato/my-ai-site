@@ -26,9 +26,9 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue,
     if (useArtists) {
 
         if (requestComments)
-            prompt += "/* Artists */\n";
+            prompt += "\n\n/* Artists */\n";
         
-        prompt += "c.cu (artist), inkerton-kun(artist), mdf_an(artist), wamudraws(artist), dogsmith(artist), inu-sama(artist), faizenek(artist), "
+        prompt += "c.cu (artist), kakuteki (artist), nekocrispy (artist), stunnerpony (artist), wamudraws (artist), ";
     }
     
     if (requestComments)
@@ -123,7 +123,8 @@ function constructFigurePrompt(
     }
 }
 
-
+// c.cu, kakuteki, kipteitei, cookiescat, blushyspicy, nekocrispy, stunnerpony, inu-sama, the dogsmith, tsukasawa takamatsu
+// c.cu (artist), inkerton-kun(artist), mdf_an(artist), wamudraws(artist), dogsmith(artist), inu-sama(artist), faizenek(artist)
 
 // const artists = [
 //     { display_name: "blushyspicy",    value: "blushyspicy(artist)", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgK8Lx11D2D8azuT1eM_l4GytBvz3OaDgcZg&s" },
