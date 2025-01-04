@@ -31,6 +31,8 @@
                 document.getElementById("negatives").checked,
                 document.getElementById("comments").checked,
                 document.getElementById("quality").checked,
+
+                document.getElementById("artists").checked,
                 
                 document.getElementById("gender").checked,
                 document.getElementById("char-count").checked,
@@ -145,6 +147,16 @@
                 <span class="slider"></span>
             </label>
             Use extra strong quality prompt
+        </p>
+
+        <h3>Artists<sup>(beta)</sup></h3>
+
+        <p>
+            <label class="switch">
+                <input type="checkbox" id="artists" oninput="craft()">
+                <span class="slider"></span>
+            </label>
+            Include preset artists list
         </p>
         
         <h3>Composition</h3>
