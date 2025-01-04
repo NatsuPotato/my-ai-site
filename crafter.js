@@ -1,5 +1,6 @@
 function getPromptFromValues(description, breastsValue, bellyValue, hipsValue,
                              requestAiyabot = false, requestWidth = "0", requestHeight = "0", requestNegatives = false, requestComments = true, requestHighQuality = false,
+                             useArtists = false,
                              isMale = false, isTwoCharacters = false, isDutchAngle = false, viewPrompt = "front view", shotPrompt = "medium shot") {
     
     let prompt = "";
@@ -21,6 +22,14 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue,
     if (requestComments)
         prompt += "/* Quality */\n";
     prompt += constructQualityPrompt(requestHighQuality) + ", ";
+
+    if (useArtists) {
+
+        if (requestComments)
+            prompt += "/* Artists */\n";
+        
+        prompt += "c.cu (artist), inkerton-kun(artist), mdf_an(artist), wamudraws(artist), dogsmith(artist), inu-sama(artist), faizenek(artist), "
+    }
     
     if (requestComments)
         prompt += "\n\n/* Composition */\n";
