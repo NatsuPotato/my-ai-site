@@ -170,20 +170,22 @@ function constructBellyPrompt(value, viewPrompt) {
     let extra = "";
 
     if (value > 80)
-        extra += "(large belly, round belly, stuffed belly, pot belly, belly sticking out, fat)";
+        extra += "(large belly, round belly, stuffed belly, pot belly, belly sticking out, fat), ";
     
-    return extra + ", (" + getSize(value) + " belly:1.3)";
+    return extra + "(" + getSize(value) + " belly:1.3)";
 }
 
 function constructHipsPrompt(value, viewPrompt) {
 
+    let main  = getSize(value) + " hips";
+
+    if (viewPrompt === "side view" || viewPrompt === "view from behind")
+        main = getSize(value) + " ass, " + main;
+    
     let extra = "";
 
     if (value >= 60 && viewPrompt !== "view from behind")
-        extra += "(thick thighs:1." + parseInt(value / 10 - 5) + ")";
-
-    if (viewPrompt === "side view" || viewPrompt === "view from behind")
-        extra += ", " + getSize(value) + " ass";
+        extra += "(thick thighs:1." + parseInt(value / 10 - 5) + "), ";
     
-    return extra + ", (" + getSize(value) + " hips" + (viewPrompt === "view from behind" ? ":1.6)" : ":1.3)");
+    return extra + "(" + main + (viewPrompt === "view from behind" ? ":1.6)" : ":1.3)");
 }
