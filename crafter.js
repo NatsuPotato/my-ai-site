@@ -156,7 +156,10 @@ function constructBreastsPrompt(value, viewPrompt) {
 function constructBellyPrompt(value, viewPrompt) {
 
     if (value == 1)
-        return "(slim)"; // "no belly, hourglass figure, narrow waist"
+        return "(slim, no belly, hourglass figure, narrow waist)";
+
+    if (value < 8)
+        return "(slim)";
     
     if (value < 16)
         return "(chubby)";
@@ -167,7 +170,7 @@ function constructBellyPrompt(value, viewPrompt) {
     let extra = "";
 
     if (value > 80) {
-        extra += "belly sticking out, round belly, ";
+        extra += "large belly, round belly, stuffed belly, pot belly, belly sticking out, fat";
     }
     
     return "(" + extra + getSize(value) + " belly:1.3)";
