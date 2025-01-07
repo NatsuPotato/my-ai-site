@@ -31,14 +31,14 @@
                 document.getElementById("negatives").checked,
                 document.getElementById("comments").checked,
                 document.getElementById("quality").checked,
-
-                document.getElementById("artists").checked,
                 
                 document.getElementById("gender").checked,
                 document.getElementById("char-count").checked,
                 document.getElementById("dutch-angle").checked,
                 document.querySelector('input[name="view"]:checked').value,
-                document.querySelector('input[name="shot"]:checked').value
+                document.querySelector('input[name="shot"]:checked').value,
+
+                document.getElementById("artists").checked ? "blushyspicy(artist), ((cutesexyrobutts)), spellsX(artist), nekocrispy (artist), stunnerpony (artist), wamudraws (artist)" : ""
             );
 
             document.getElementById("output").value = promptInfo.prompt;
