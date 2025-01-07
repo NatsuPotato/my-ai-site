@@ -1,7 +1,7 @@
 function getPromptFromValues(description, breastsValue, bellyValue, hipsValue,
                              requestAiyabot = false, requestWidth = "0", requestHeight = "0", requestNegatives = false, requestComments = true, requestHighQuality = false,
-                             useArtists = false,
-                             isMale = false, isTwoCharacters = false, isDutchAngle = false, viewPrompt = "front view", shotPrompt = "medium shot") {
+                             isMale = false, isTwoCharacters = false, isDutchAngle = false, viewPrompt = "front view", shotPrompt = "medium shot",
+                             artistsPrompt = "") {
     
     let prompt = "";
 
@@ -23,12 +23,12 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue,
         prompt += "/* Quality */\n";
     prompt += constructQualityPrompt(requestHighQuality) + ", ";
 
-    if (useArtists) {
+    if (artistsPrompt !== "") {
 
         if (requestComments)
             prompt += "\n\n/* Artists */\n";
         
-        prompt += "c.cu (artist), kakuteki (artist), nekocrispy (artist), stunnerpony (artist), wamudraws (artist), ";
+        prompt += artistsPrompt;
     }
     
     if (requestComments)
