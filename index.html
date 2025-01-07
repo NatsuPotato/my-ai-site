@@ -15,6 +15,20 @@
                 element.classList.add("disabled");
             }
         }
+
+        function init() {
+
+            // let params = new URLSearchParams(document.location.search);
+            // let name = params.get("name"); // is the string "Jonathan"
+            // let age = parseInt(params.get("age"), 10); // is the number 18
+            // params.set("baz", 3);
+            // params.toString(); // "foo=1&bar=2&baz=3"
+
+
+            window.history.replaceState({}, '', "?cat=7");
+
+            craft();
+        }
         
         function craft() {
             
@@ -98,7 +112,7 @@
         }
     </style>
 </head>
-<body onload="craft();">
+<body onload="init();">
 
     <textarea readonly id="output" style="padding: 1em; resize: none; font-size: smaller; border: 1px solid black;"></textarea>
 
