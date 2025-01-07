@@ -38,7 +38,7 @@
                 document.querySelector('input[name="view"]:checked').value,
                 document.querySelector('input[name="shot"]:checked').value,
 
-                document.getElementById("artists").checked ? "blushyspicy(artist), ((cutesexyrobutts)), spellsX(artist), nekocrispy (artist), stunnerpony (artist), wamudraws (artist)" : ""
+                document.querySelector('input[name="artists"]:checked').value
             );
 
             document.getElementById("output").value = promptInfo.prompt;
@@ -152,13 +152,14 @@
 
         <h3>Artists<sup>(beta)</sup></h3>
 
-        <p>
-            <label class="switch">
-                <input type="checkbox" id="artists" oninput="craft()">
-                <span class="slider"></span>
-            </label>
-            Include preset artists list
-        </p>
+<!--    old -> c.cu (artist), kakuteki (artist), nekocrispy (artist), stunnerpony (artist), wamudraws (artist) -->
+
+        <input type="radio" id="artists1" name="artists" oninput="craft()" value="" checked>
+        <label for="artists1">None</label>
+        <input type="radio" id="artists2" name="artists" oninput="craft()" value="blushyspicy(artist), ((cutesexyrobutts)), spellsX(artist), wamudraws (artist)">
+        <label for="artists2">Sleek</label>
+        <input type="radio" id="artists3" name="artists" oninput="craft()" value="blushyspicy(artist), ((cutesexyrobutts)), spellsX(artist), nekocrispy (artist), stunnerpony (artist), wamudraws (artist)">
+        <label for="artists3">Sleek + Anthro</label>
         
         <h3>Composition</h3>
 
