@@ -28,7 +28,7 @@ function getPromptFromValues(description, breastsValue, bellyValue, hipsValue,
         if (requestComments)
             prompt += "\n\n/* Artists */\n";
         
-        prompt += artistsPrompt;
+        prompt += artistsPrompt + ", ";
     }
     
     if (requestComments)
