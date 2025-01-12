@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <title>My AI Site</title>
     <style>
-        body { display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 1em; min-height: 100vh; }
+        body { display: flex; justify-content: center; align-content: stretch; flex-direction: column; gap: 1em; min-height: 100vh; width: 40em; margin: auto; }
 
         fieldset { border: 1px solid #ddd; }
         th { text-align: left; padding-right: 1em; }
         td { font-family: monospace; }
+
+        .button { background: #f2f2f2; padding: 0.5em; text-align: center; text-decoration: none; color: black; }
     </style>
 </head>
 <body>
-    <a href="prompt-crafter">Prompt Crafter</a>
-    <a href="character-prompts">Character Prompts<sup>beta</sup></a>
+    <a class="button" href="prompt-crafter">Prompt Crafter</a>
+    <a class="button" href="character-prompts">Character Prompts<sup>beta</sup></a>
     <small>View the <a href="https://github.com/BlueBunnex/prompt-crafter">Github</a>.</small>
 
     <fieldset>
