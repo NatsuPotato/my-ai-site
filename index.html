@@ -3,15 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>My AI Site</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 1em; min-height: 100vh; }
+
+        fieldset { border: 1px solid #ddd; }
+        th { text-align: left; padding-right: 1em; }
+        td { font-family: monospace; }
+    </style>
 </head>
-<body style="display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 1em; min-height: 100vh;">
+<body>
     <a href="prompt-crafter">Prompt Crafter</a>
     <a href="character-prompts">Character Prompts<sup>beta</sup></a>
     <small>View the <a href="https://github.com/BlueBunnex/prompt-crafter">Github</a>.</small>
 
-    <fieldset style="border: 1px solid #ddd; background: #f2f2f2; font-family: monospace; padding: 1em;">
-        <legend>TropicalFun's Universal Negative (for SD 1.5)</legend>
-        bad anatomy, bad hands, text, missing finger, extra digits, fewer digits, mutated hands, mutated fingers, poorly drawn face, mutation, deformed face, ugly, bad proportions, bad anatomy, bad hands, text, error, missing fingers, cropped, censored, pixelart, ugly, sketch, lineart, monochrome, duplicate, morbid, mutilated, mutated, missing limbs, missing limb, monster, logo, print, cropped, (worst quality, low quality:1.4), extra fingers, fewer fingers, (bad eyes:1.2), (misfigured pupils:1.2), (bad clothing:1.3), (nonsensical backgrounds:1.2), (bad backgrounds:1.2), (bad shadows:1.2), (bad anatomy:1.1), jpeg artifacts, signature, watermark, username, blurry, out of frame, screenshot, game cg, user interface, source request, commentary request, english commentary, symbol-only commentary, commentary, commission, bad composition, inaccurate eyes, (extra arms:1.2)
+    <fieldset>
+        <legend>TropicalFun's Suggested Workflow</legend>
+        <table>
+            <tr>
+                <th>Model:</th>
+                <td><a href="https://huggingface.co/mariaWitch/ExperimentalBiggerMerges/tree/main">BBW Aurora Borealis</a></td>
+            </tr>
+            <tr>
+                <th>Negative:</th>
+                <td>bad anatomy, bad hands, text, missing finger, extra digits, fewer digits, mutated hands, mutated fingers, poorly drawn face, mutation, deformed face, ugly, bad proportions, bad anatomy, bad hands, text, error, missing fingers, cropped, censored, pixelart, ugly, sketch, lineart, monochrome, duplicate, morbid, mutilated, mutated, missing limbs, missing limb, monster, logo, print, cropped, (worst quality, low quality:1.4), extra fingers, fewer fingers, (bad eyes:1.2), (misfigured pupils:1.2), (bad clothing:1.3), (nonsensical backgrounds:1.2), (bad backgrounds:1.2), (bad shadows:1.2), (bad anatomy:1.1), jpeg artifacts, signature, watermark, username, blurry, out of frame, screenshot, game cg, user interface, source request, commentary request, english commentary, symbol-only commentary, commentary, commission, bad composition, inaccurate eyes, (extra arms:1.2)</td>
+            </tr>
+        </table>
     </fieldset>
 </body>
 </html>
