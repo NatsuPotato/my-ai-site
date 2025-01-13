@@ -1,60 +1,68 @@
-function getPromptFromValues(description, breastsValue, bellyValue, hipsValue,
-                             requestAiyabot = false, requestWidth = "0", requestHeight = "0", requestNegatives = false, requestComments = true, requestHighQuality = false,
-                             isMale = false, isTwoCharacters = false, isDutchAngle = false, viewPrompt = "front view", shotPrompt = "medium shot",
-                             artistsPrompt = "") {
-    
+function getPromptFromValues(allPackets) {
+
     let prompt = "";
 
     let promptInfo = {
         prompt: "",
-        consideredBreasts:   shotPrompt !== "head shot" && !isMale,
-        consideredBelly:     shotPrompt !== "head shot",
-        consideredHips:      shotPrompt === "full body shot" || shotPrompt === "medium shot",
-        consideredComments:  !requestAiyabot,
-        consideredNegatives: requestAiyabot
+        consideredBreasts: true, //shotPrompt !== "head shot" && !isMale,
+        consideredBelly:   true, //shotPrompt !== "head shot",
+        consideredHips:    true  //shotPrompt === "full body shot" || shotPrompt === "medium shot"
     };
+    
+    for (const packet of allPackets) {
 
-    requestComments = !requestAiyabot && requestComments;
+        switch (packet.packetName) {
+                
+            case "figure":
+                // if (requestComments)
+                //     prompt += "\n\n/* Figure */\n";
+                prompt += constructFigurePrompt(
+                    promptInfo.consideredBreasts, packet.breasts,
+                    promptInfo.consideredBelly,   packet.belly,
+                    promptInfo.consideredHips,    packet.hips,
+                    "front view" //viewPrompt
+                );
+                break;
+                
+            default:
+                console.log(packet.packetName);
+        }
+    }
 
-    if (requestAiyabot)
-        prompt += "/draw prompt:";
+    // requestComments = !requestAiyabot && requestComments;
 
-    if (requestComments)
-        prompt += "/* Quality */\n";
-    prompt += constructQualityPrompt(requestHighQuality) + ", ";
+    // if (requestAiyabot)
+    //     prompt += "/draw prompt:";
 
-    if (artistsPrompt !== "") {
+    // if (requestComments)
+    //     prompt += "/* Quality */\n";
+    // prompt += constructQualityPrompt(requestHighQuality) + ", ";
 
-        if (requestComments)
-            prompt += "\n\n/* Artists */\n";
+    // if (artistsPrompt !== "") {
+
+    //     if (requestComments)
+    //         prompt += "\n\n/* Artists */\n";
         
-        prompt += artistsPrompt + ", ";
-    }
+    //     prompt += artistsPrompt + ", ";
+    // }
     
-    if (requestComments)
-        prompt += "\n\n/* Composition */\n";
-    prompt += constructCompositionPrompt(isMale, isTwoCharacters, isDutchAngle, viewPrompt, shotPrompt) + ", ";
+    // if (requestComments)
+    //     prompt += "\n\n/* Composition */\n";
+    // prompt += constructCompositionPrompt(isMale, isTwoCharacters, isDutchAngle, viewPrompt, shotPrompt) + ", ";
 
-    if (requestComments)
-        prompt += "\n\n/* Character/scene description */\n";
-    prompt += description + ", ";
-    
-    if (requestComments)
-        prompt += "\n\n/* Figure */\n";
-    prompt += constructFigurePrompt(
-        promptInfo.consideredBreasts, breastsValue,
-        promptInfo.consideredBelly,   bellyValue,
-        promptInfo.consideredHips,    hipsValue,
-        viewPrompt
-    );
+    // if (requestComments)
+    //     prompt += "\n\n/* Character/scene description */\n";
+    // prompt += description + ", ";
 
-    if (requestAiyabot) {
+    // figure
 
-        if (requestNegatives)
-            prompt += " negative_prompt:(ugly), ((watermark, hourglass)), ((mutilated)), out of frame, extra fingers, extra limbs, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), ((mutation)), ((deformed)), blurry, (bad anatomy), (bad proportions), (extra limbs), (disfigured), (malformed limbs), ((missing arms)), ((missing legs)), ((extra arms)), ((extra legs)), (fused fingers), (too many fingers), (long neck), bad_eyes, poorly_drawn_eyes";
+    // if (requestAiyabot) {
+
+    //     if (requestNegatives)
+    //         prompt += " negative_prompt:(ugly), ((watermark, hourglass)), ((mutilated)), out of frame, extra fingers, extra limbs, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), ((mutation)), ((deformed)), blurry, (bad anatomy), (bad proportions), (extra limbs), (disfigured), (malformed limbs), ((missing arms)), ((missing legs)), ((extra arms)), ((extra legs)), (fused fingers), (too many fingers), (long neck), bad_eyes, poorly_drawn_eyes";
       
-        prompt += ` width:${ requestWidth } height:${ requestHeight }`;
-    }
+    //     prompt += ` width:${ requestWidth } height:${ requestHeight }`;
+    // }
 
     promptInfo.prompt = prompt;
     
