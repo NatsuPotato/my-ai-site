@@ -34,7 +34,7 @@
             getQualityInfo().forEach(function(quality, i) {
 
                 document.getElementById("quality-section").innerHTML += `
-                    <input type="radio" id="quality${ i }" name="quality" oninput="craft()" value="${ i }">
+                    <input type="radio" id="quality${ i }" name="quality" oninput="craft()" value="${ i }"${ i == 0 ? "checked" : "" }>
                     <label for="quality${ i }">${ quality.name }</label>
                 `;
             });
@@ -42,8 +42,8 @@
             getArtistsInfo().forEach(function(artist, i) {
 
                 document.getElementById("artists-section").innerHTML += `
-                    <input type="radio" id="artist{ i }" name="artists" oninput="craft()" value="${ i }">
-                    <label for="artist{ i }">${ artist.name }</label>
+                    <input type="radio" id="artist${ i }" name="artists" oninput="craft()" value="${ i }"${ i == 0 ? "checked" : "" }>
+                    <label for="artist${ i }">${ artist.name }</label>
                 `;
             });
 
