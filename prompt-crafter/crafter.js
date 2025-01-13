@@ -52,11 +52,11 @@ function getPromptInfo(initPacket, promptPackets) {
 
             case "description": promptInfo.prompt += packet.description + ", "; break;
 
-            case "quality":     console.log(packet.index); break;
+            case "quality":     promptInfo.prompt += getQualityInfo()[packet.index].prompt + ", "; break;
                 
             case "figure":      appendFigurePrompt(promptInfo, packet); break;
                 
-            case "artists":     console.log(packet.index); break;
+            case "artists":     promptInfo.prompt += getArtistsInfo()[packet.index].prompt + ", "; break;
                 
             case "composition": appendCompositionPrompt(promptInfo, packet); break;
                 
