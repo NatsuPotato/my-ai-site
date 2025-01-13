@@ -118,141 +118,150 @@
 
     <div>
         <button onclick="copy();" id="copy-button" style="width: 100%; padding: 1em;">Copy Prompt</button>
+        this place is in construction rn
 
         <div style="font-size: smaller; text-align: right; margin-top: 4px;">View the <a href="https://github.com/BlueBunnex/prompt-crafter">Github</a>.</div>
         
         <h3>Describe your character/scene</h3>
 
         <textarea id="description" style="padding: 1em; resize: vertical; border: 1px solid black; width: 50%; min-width: 30em; box-sizing: border-box; height: 12em;" oninput="craft()"></textarea>
-        
-        <h3>Meta</h3>
 
-        <p>
-            <label class="switch">
-                <input type="checkbox" id="aiyabot" oninput="craft()">
-                <span class="slider"></span>
-            </label>
-            Format as Aiyabot command with
+        <fieldset>
+            <legend>Format</legend>
+    
+            <input type="radio" id="format1" name="format" oninput="craft()" value="">
+            <label for="format1">Inline</label>
+            <input type="radio" id="format2" name="format" oninput="craft()" value="">
+            <label for="format2">Commented</label>
+            <input type="radio" id="format3" name="format" oninput="craft()" value="">
+            <label for="format3">Aiyabot command</label>
+    
+            <br>
+    
             <label for="width">width:</label>
             <input type="text" oninput="craft()" value="640" id="width">
             and
             <label for="height">height:</label>
             <input type="text" oninput="craft()" value="800" id="height">
-        </p>
+            
+            <p id="negatives-section" style="padding-left: 1em;">
+                <label class="switch">
+                    <input type="checkbox" id="negatives" oninput="craft()" checked>
+                    <span class="slider"></span>
+                </label>
+                Include negative prompt
+            </p>
+        </fieldset>
 
-        <p id="negatives-section" style="padding-left: 1em;">
-            <label class="switch">
-                <input type="checkbox" id="negatives" oninput="craft()" checked>
-                <span class="slider"></span>
-            </label>
-            Include negative prompt
-        </p>
-        
-        <p id="comments-section">
-            <label class="switch">
-                <input type="checkbox" id="comments" oninput="craft()" checked>
-                <span class="slider"></span>
-            </label>
-            Include comments/linebreaks
-        </p>
-
-        <p>
+        <fieldset>
+            <legend>Quality Prompt</legend>
+            
             <label class="switch">
                 <input type="checkbox" id="quality" oninput="craft()">
                 <span class="slider"></span>
             </label>
             Use extra strong quality prompt
-        </p>
+        </fieldset>
 
-        <h3>Artists<sup>(beta)</sup></h3>
+        <fieldset>
+            <legend>
+                <label class="switch">
+                    <input type="checkbox" id="quality" oninput="craft()">
+                    <span class="slider"></span>
+                </label>
+                Artists Prompt<sup>(beta)</sup>
+            </legend>
 
-        <!--
-            old -> c.cu (artist), kakuteki (artist), nekocrispy (artist), stunnerpony (artist), wamudraws (artist)
-            needs testing (soft) -> blushyspicy(artist), spellsX(artist), c.cu(artist),
-        -->
-
-        <input type="radio" id="artists1" name="artists" oninput="craft()" value="" checked>
-        <label for="artists1">None</label>
-        <input type="radio" id="artists2" name="artists" oninput="craft()" value="blushyspicy(artist), ((cutesexyrobutts)), icecake, sexyo, spellsX(artist), c.cu(artist)">
-        <label for="artists2">Realistic</label>
-        <input type="radio" id="artists3" name="artists" oninput="craft()" value="blushyspicy(artist), ((cutesexyrobutts)), spellsX(artist), wamudraws (artist)">
-        <label for="artists3">Sleek (Humans)</label>
-        <input type="radio" id="artists4" name="artists" oninput="craft()" value="blushyspicy(artist), ((cutesexyrobutts)), spellsX(artist), nekocrispy (artist), stunnerpony (artist), wamudraws (artist)">
-        <label for="artists4">Sleek (Anthro)</label>
-        
-        <h3>Composition</h3>
-
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M440-120v-80h-80v-80h80v-84q-79-14-129.5-75.5T260-582q0-91 64.5-154.5T480-800q91 0 155.5 63.5T700-582q0 81-50.5 142.5T520-364v84h80v80h-80v80h-80Zm40-320q58 0 99-41t41-99q0-58-41-99t-99-41q-58 0-99 41t-41 99q0 58 41 99t99 41Z"/></svg>
-        <label class="switch">
-            <input type="checkbox" id="gender" oninput="craft()">
-            <span class="slider"></span>
-        </label>
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M800-800v240h-80v-103L561-505q19 28 29 59.5t10 65.5q0 92-64 156t-156 64q-92 0-156-64t-64-156q0-92 64-156t156-64q33 0 65 9.5t59 29.5l159-159H560v-80h240ZM380-520q-58 0-99 41t-41 99q0 58 41 99t99 41q58 0 99-41t41-99q0-58-41-99t-99-41Z"/></svg>
-
-        <br><br>
-
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z"/></svg>
-        <label class="switch">
-            <input type="checkbox" id="char-count" oninput="craft()">
-            <span class="slider"></span>
-        </label>
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm720 0v-120q0-44-24.5-84.5T666-434q51 6 96 20.5t84 35.5q36 20 55 44.5t19 53.5v120H760ZM360-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm400-160q0 66-47 113t-113 47q-11 0-28-2.5t-28-5.5q27-32 41.5-71t14.5-81q0-42-14.5-81T544-792q14-5 28-6.5t28-1.5q66 0 113 47t47 113ZM120-240h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0 320Zm0-400Z"/></svg>
-
-        <br><br>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M480-260q75 0 127.5-52.5T660-440q0-75-52.5-127.5T480-620q-75 0-127.5 52.5T300-440q0 75 52.5 127.5T480-260Zm0-80q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM160-120q-33 0-56.5-23.5T80-200v-480q0-33 23.5-56.5T160-760h126l74-80h240l74 80h126q33 0 56.5 23.5T880-680v480q0 33-23.5 56.5T800-120H160Zm0-80h640v-480H638l-73-80H395l-73 80H160v480Zm320-240Z"/></svg>
-        <label class="switch">
-            <input type="checkbox" id="dutch-angle" oninput="craft()">
-            <span class="slider"></span>
-        </label>
-        <svg style="transform: rotate(30deg);" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M480-260q75 0 127.5-52.5T660-440q0-75-52.5-127.5T480-620q-75 0-127.5 52.5T300-440q0 75 52.5 127.5T480-260Zm0-80q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM160-120q-33 0-56.5-23.5T80-200v-480q0-33 23.5-56.5T160-760h126l74-80h240l74 80h126q33 0 56.5 23.5T880-680v480q0 33-23.5 56.5T800-120H160Zm0-80h640v-480H638l-73-80H395l-73 80H160v480Zm320-240Z"/></svg>
-        
-        <br><br>
-
-        <input type="radio" id="view1" name="view" oninput="craft()" value="front view" checked>
-        <label for="view1">front view</label>
-        <input type="radio" id="view2" name="view" oninput="craft()" value="side view">
-        <label for="view2">side view</label>
-        <input type="radio" id="view3" name="view" oninput="craft()" value="view from behind">
-        <label for="view3">view from behind</label>
-        <input type="radio" id="view4" name="view" oninput="craft()" value="view from above">
-        <label for="view4">view from above</label>
-        <input type="radio" id="view5" name="view" oninput="craft()" value="view from below">
-        <label for="view5">view from below</label>
-        
-        <br><br>
-
-        <input type="radio" id="shot1" name="shot" oninput="craft()" value="head shot">
-        <label for="shot1">head shot</label>
-        <input type="radio" id="shot2" name="shot" oninput="craft()" value="bust shot">
-        <label for="shot2">bust shot</label>
-        <input type="radio" id="shot3" name="shot" oninput="craft()" value="medium shot" checked>
-        <label for="shot3">medium shot</label>
-        <input type="radio" id="shot4" name="shot" oninput="craft()" value="full body shot">
-        <label for="shot4">full body shot</label>
+            <!--
+                old -> c.cu (artist), kakuteki (artist), nekocrispy (artist), stunnerpony (artist), wamudraws (artist)
+                needs testing (soft) -> blushyspicy(artist), spellsX(artist), c.cu(artist),
+            -->
     
-        <h3>Figure</h3>
-        
-        <table>
-            <tr id="breasts-section">
-                <td>Breasts:</td>
-                <td>
-                    <input id="breasts-thickness" type="range" min="1" max="100" value="20" oninput="craft()">
-                </td>
-            </tr>
-            <tr id="belly-section">
-                <td style="min-width: 4em;">Belly:</td>
-                <td>
-                    <input id="belly-thickness" type="range" min="1" max="100" value="20" oninput="craft()">
-                </td>
-            </tr>
-            <tr id="hips-section">
-                <td>Hips:</td>
-                <td>
-                    <input id="hips-thickness" type="range" min="1" max="100" value="20" oninput="craft()">
-                </td>
-            </tr>
-        </table>
+            <input type="radio" id="artists1" name="artists" oninput="craft()" value="blushyspicy(artist), ((cutesexyrobutts)), icecake, sexyo, spellsX(artist), c.cu(artist)">
+            <label for="artists1">Realistic</label>
+            <input type="radio" id="artists2" name="artists" oninput="craft()" value="blushyspicy(artist), ((cutesexyrobutts)), spellsX(artist), wamudraws (artist)">
+            <label for="artists2">Sleek (Humans)</label>
+            <input type="radio" id="artists3" name="artists" oninput="craft()" value="blushyspicy(artist), ((cutesexyrobutts)), spellsX(artist), nekocrispy (artist), stunnerpony (artist), wamudraws (artist)">
+            <label for="artists3">Sleek (Anthro)</label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Composition</legend>
+    
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M440-120v-80h-80v-80h80v-84q-79-14-129.5-75.5T260-582q0-91 64.5-154.5T480-800q91 0 155.5 63.5T700-582q0 81-50.5 142.5T520-364v84h80v80h-80v80h-80Zm40-320q58 0 99-41t41-99q0-58-41-99t-99-41q-58 0-99 41t-41 99q0 58 41 99t99 41Z"/></svg>
+            <label class="switch">
+                <input type="checkbox" id="gender" oninput="craft()">
+                <span class="slider"></span>
+            </label>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M800-800v240h-80v-103L561-505q19 28 29 59.5t10 65.5q0 92-64 156t-156 64q-92 0-156-64t-64-156q0-92 64-156t156-64q33 0 65 9.5t59 29.5l159-159H560v-80h240ZM380-520q-58 0-99 41t-41 99q0 58 41 99t99 41q58 0 99-41t41-99q0-58-41-99t-99-41Z"/></svg>
+    
+            <br><br>
+    
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z"/></svg>
+            <label class="switch">
+                <input type="checkbox" id="char-count" oninput="craft()">
+                <span class="slider"></span>
+            </label>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm720 0v-120q0-44-24.5-84.5T666-434q51 6 96 20.5t84 35.5q36 20 55 44.5t19 53.5v120H760ZM360-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm400-160q0 66-47 113t-113 47q-11 0-28-2.5t-28-5.5q27-32 41.5-71t14.5-81q0-42-14.5-81T544-792q14-5 28-6.5t28-1.5q66 0 113 47t47 113ZM120-240h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0 320Zm0-400Z"/></svg>
+    
+            <br><br>
+            
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M480-260q75 0 127.5-52.5T660-440q0-75-52.5-127.5T480-620q-75 0-127.5 52.5T300-440q0 75 52.5 127.5T480-260Zm0-80q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM160-120q-33 0-56.5-23.5T80-200v-480q0-33 23.5-56.5T160-760h126l74-80h240l74 80h126q33 0 56.5 23.5T880-680v480q0 33-23.5 56.5T800-120H160Zm0-80h640v-480H638l-73-80H395l-73 80H160v480Zm320-240Z"/></svg>
+            <label class="switch">
+                <input type="checkbox" id="dutch-angle" oninput="craft()">
+                <span class="slider"></span>
+            </label>
+            <svg style="transform: rotate(30deg);" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M480-260q75 0 127.5-52.5T660-440q0-75-52.5-127.5T480-620q-75 0-127.5 52.5T300-440q0 75 52.5 127.5T480-260Zm0-80q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM160-120q-33 0-56.5-23.5T80-200v-480q0-33 23.5-56.5T160-760h126l74-80h240l74 80h126q33 0 56.5 23.5T880-680v480q0 33-23.5 56.5T800-120H160Zm0-80h640v-480H638l-73-80H395l-73 80H160v480Zm320-240Z"/></svg>
+            
+            <br><br>
+    
+            <input type="radio" id="view1" name="view" oninput="craft()" value="front view" checked>
+            <label for="view1">front view</label>
+            <input type="radio" id="view2" name="view" oninput="craft()" value="side view">
+            <label for="view2">side view</label>
+            <input type="radio" id="view3" name="view" oninput="craft()" value="view from behind">
+            <label for="view3">view from behind</label>
+            <input type="radio" id="view4" name="view" oninput="craft()" value="view from above">
+            <label for="view4">view from above</label>
+            <input type="radio" id="view5" name="view" oninput="craft()" value="view from below">
+            <label for="view5">view from below</label>
+            
+            <br><br>
+    
+            <input type="radio" id="shot1" name="shot" oninput="craft()" value="head shot">
+            <label for="shot1">head shot</label>
+            <input type="radio" id="shot2" name="shot" oninput="craft()" value="bust shot">
+            <label for="shot2">bust shot</label>
+            <input type="radio" id="shot3" name="shot" oninput="craft()" value="medium shot" checked>
+            <label for="shot3">medium shot</label>
+            <input type="radio" id="shot4" name="shot" oninput="craft()" value="full body shot">
+            <label for="shot4">full body shot</label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Figure</legend>
+            
+            <table>
+                <tr id="breasts-section">
+                    <td>Breasts:</td>
+                    <td>
+                        <input id="breasts-thickness" type="range" min="1" max="100" value="20" oninput="craft()">
+                    </td>
+                </tr>
+                <tr id="belly-section">
+                    <td style="min-width: 4em;">Belly:</td>
+                    <td>
+                        <input id="belly-thickness" type="range" min="1" max="100" value="20" oninput="craft()">
+                    </td>
+                </tr>
+                <tr id="hips-section">
+                    <td>Hips:</td>
+                    <td>
+                        <input id="hips-thickness" type="range" min="1" max="100" value="20" oninput="craft()">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
     </div>
     
 </body>
