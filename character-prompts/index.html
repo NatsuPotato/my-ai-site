@@ -9,19 +9,43 @@
         img { height: 240px; }
         
         #variants { display: flex; justify-content: center; align-items: center; gap: 4px; text-align: center; }
-        #variants img { display: block; width: 100px; height: 50px; border: 1px solid black; }
+        #variants img { display: block; height: 100px; border: 1px solid black; }
     </style>
     <script type="module">
         const chars = [
             {
                 name: "Nano",
                 prompt: "tall, mature, adult, white hair, (purple streaks in hair), long hair, twintails, purple eyes, (big white hoodie), black pleated miniskirt, big boobs",
-                image: "nano.png"
+                image: "nano.png",
+                variants: [
+                    {
+                        tag: "Beach",
+                        prompt: "",
+                        image: "nano.png"
+                    },
+                    {
+                        tag: "Pajama",
+                        prompt: "",
+                        image: "nano.png"
+                    }
+                ]
             }
         ];
         
         let params = new URLSearchParams(document.location.search);
         let id = parseInt(params.get("id"));
+
+        let variants = "";
+
+        for (const variant of chars[0].variants) {
+
+            variants += `
+                <a href="?id=0&variant=0">
+                    <img src="${ variant.image }">
+                    ${ chars[0].name } (${ variant.tag })
+                </a>
+            `;
+        }
 
         document.getElementById("main-insert").innerHTML += `
             <h1>${ chars[0].name }</h1>
@@ -38,10 +62,7 @@
             <div style="border: 1px solid red; padding: 8px 8px 4px; background: #ffccd4;">
                 <div style="text-align: center; font-weight: 700;">This character has multiple variants.</div>
                 <div id="variants">
-                    <a href="?id=10">
-                        <img src="https://gbf.wiki/images/thumb/b/b0/Npc_m_3040027000_01.jpg/200px-Npc_m_3040027000_01.jpg">
-                        Anila
-                    </a>
+                    ${ variants }
                 </div>
             </div>
         `;
