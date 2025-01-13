@@ -10,11 +10,6 @@
         
         #variants { display: flex; justify-content: center; align-items: center; gap: 4px; text-align: center; }
         #variants img { display: block; width: 100px; height: 50px; border: 1px solid black; }
-
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid red; padding: 8px 1em 4px; }
-        th { background: #ffccd4; }
-        td { background: #fafafa; }
     </style>
     <script type="module">
         let params = new URLSearchParams(document.location.search);
@@ -24,60 +19,30 @@
     </script>
 </head>
 <body>
-    <div style="text-align: center; font-weight: 700;">This character has multiple variants.</div>
-    <div id="variants">
-        <a href="?id=10">
-            <img src="https://gbf.wiki/images/thumb/b/b0/Npc_m_3040027000_01.jpg/200px-Npc_m_3040027000_01.jpg">
-            Anila
-        </a>
+    <h3>Nano</h3>
+    
+    <div style="border: 1px solid red; padding: 8px; background: #ffccd4;">
+        <div style="text-align: center; font-weight: 700;">This character has multiple variants.</div>
+        <div id="variants">
+            <a href="?id=10">
+                <img src="https://gbf.wiki/images/thumb/b/b0/Npc_m_3040027000_01.jpg/200px-Npc_m_3040027000_01.jpg">
+                Anila
+            </a>
+        </div>
     </div>
 
-    <table>
-        <tr>
-            <th style="font-size: 1.5em;">Nano</th>
-        </tr>
-    </table>
-
-    <div style="display: flex; gap: 1em; margin: 1em 0; align-items: start;">
-        <div style="flex: 1;"></div>
-        <img src="nano_example.png">
-        <div style="flex: 1;"></div>
-        <table>
-            <tr>
-                <th>Kingdom</th>
-                <td><span style="color: red;">Vuhrain</span></td>
-            </tr>
-            <tr>
-                <th>Profession</th>
-                <td>Gamer</td>
-            </tr>
-            <tr>
-                <th>Power LVL</th>
-                <td>18500</td>
-            </tr>
-        </table>
-    </div>
+    <img src="nano_example.png">
+    <img src="nano_example2.png">
+    <img src="nano_example3.png">
     
     <table>
         <tr>
-            <th>Physical Prompts</th>
-            <td>tall, mature, adult, white hair, (purple streaks in hair), long hair, twintails, purple eyes</td>
-        </tr>
-        <tr>
-            <th>Outfit Prompts</th>
-            <td>(big white hoodie), black pleated miniskirt, black shoes</td>
-        </tr>
-        <tr>
-            <th>Size Prompts</th>
-            <td>big breasts, perky breasts, round breasts, narrow waist, wide hips</td>
+            <th style="vertical-align: top;">Prompt</th>
+            <td>tall, mature, adult, white hair, (purple streaks in hair), long hair, twintails, purple eyes, (big white hoodie), black pleated miniskirt, big boobs</td>
         </tr>
     </table>
 
     <br>
     https://gbf.wiki/Anila
-    <br>
-    <img src="nano_example.png">
-    <img src="nano_example2.png">
-    <img src="nano_example3.png">
 </body>
 </html>
