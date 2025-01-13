@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <title>Character Prompts</title>
     <style>
-        body { font-family: sans-serif; max-width: 50em; margin: auto; font-size: 14px; line-height: 1.5em; }
+        body { font-family: sans-serif; max-width: 65em; margin: auto; font-size: 14px; line-height: 1.5em; }
         img { height: 300px; }
 
         #variants { display: flex; align-items: center; gap: 4px; text-align: center; }
         #variants img { display: block; width: 100px; height: 50px; border: 1px solid black; }
+
+        table { border-collapse: collapse; }
+        th, td { border: 1px solid red; }
+        th { background: #fcd; }
+        td { background: #eee; }
     </style>
     <script type="module">
         let params = new URLSearchParams(document.location.search);
@@ -28,25 +33,26 @@
 
     <table>
         <tr>
-            <th colspan="3">Nano</th>
+            <th colspan="4">Nano</th>
         </tr>
         <tr>
             <td colspan="2">
                 <img src="nano_example.png">
             </td>
-            <th>100 def</th>
+            <th>def</th>
+            <td>100</td>
         </tr>
         <tr>
             <th>Physical Prompts</th>
-            <td colspan="2">tall, mature, adult, white hair, (purple streaks in hair), long hair, twintails, purple eyes</td>
+            <td colspan="3">tall, mature, adult, white hair, (purple streaks in hair), long hair, twintails, purple eyes</td>
         </tr>
         <tr>
             <th>Outfit Prompts</th>
-            <td colspan="2">(big white hoodie), black pleated miniskirt, black shoes</td>
+            <td colspan="3">(big white hoodie), black pleated miniskirt, black shoes</td>
         </tr>
         <tr>
             <th>Size Prompts</th>
-            <td colspan="2">big breasts, perky breasts, round breasts, narrow waist, wide hips</td>
+            <td colspan="3">big breasts, perky breasts, round breasts, narrow waist, wide hips</td>
         </tr>
     </table>
     
