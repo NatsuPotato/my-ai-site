@@ -94,8 +94,9 @@
         body { font-family: sans-serif; display: grid; grid-template-columns: 1fr 2fr; gap: 1em; min-height: calc(100vh - 1em); }
         svg { vertical-align: middle; }
         
-        fieldset { margin: 1em 0; padding: 2em 1em; }
+        fieldset { margin: 1em 0; padding: 2em 1em; border: 4px solid #eee; }
         fieldset[disabled] { opacity: 40%; }
+        legend { background: #eee; border-radius: 100px; padding: 0.5em 1em; }
 
         input[type="radio"] { display: none; }
         input[type="radio"]         + label { border-bottom: 4px solid lightgrey; cursor: pointer; padding: calc(0.5em + 4px) 1em 0.5em; display: inline-block; }
@@ -164,13 +165,13 @@
             </p>
         </fieldset>
 
-        <fieldset id="quality-prompt" disabled>
+        <fieldset id="quality-section" disabled>
             <legend>
                 <label class="switch">
-                    <input type="checkbox" id="quality" oninput="toggle(this, 'quality-prompt');">
+                    <input type="checkbox" oninput="toggle(this, 'quality-section');">
                     <span class="slider"></span>
                 </label>
-                Quality Prompt
+                Quality
             </legend>
             
             <label class="switch">
@@ -180,13 +181,15 @@
             Use extra strong quality prompt
         </fieldset>
 
-        <fieldset id="artists-prompt" disabled>
+        
+
+        <fieldset id="artists-section" disabled>
             <legend>
                 <label class="switch">
-                    <input type="checkbox" id="quality" oninput="toggle(this, 'artists-prompt');">
+                    <input type="checkbox" oninput="toggle(this, 'artists-section');">
                     <span class="slider"></span>
                 </label>
-                Artists Prompt<sup>(beta)</sup>
+                Artists<sup>(beta)</sup>
             </legend>
 
             <!--
@@ -202,8 +205,16 @@
             <label for="artists3">Sleek (Anthro)</label>
         </fieldset>
 
-        <fieldset>
-            <legend>Composition</legend>
+        
+
+        <fieldset id="composition-section" disabled>
+            <legend>
+                <label class="switch">
+                    <input type="checkbox" oninput="toggle(this, 'composition-section');">
+                    <span class="slider"></span>
+                </label>
+                Composition
+            </legend>
     
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M440-120v-80h-80v-80h80v-84q-79-14-129.5-75.5T260-582q0-91 64.5-154.5T480-800q91 0 155.5 63.5T700-582q0 81-50.5 142.5T520-364v84h80v80h-80v80h-80Zm40-320q58 0 99-41t41-99q0-58-41-99t-99-41q-58 0-99 41t-41 99q0 58 41 99t99 41Z"/></svg>
             <label class="switch">
@@ -255,8 +266,16 @@
             <label for="shot4">full body shot</label>
         </fieldset>
 
-        <fieldset>
-            <legend>Figure</legend>
+
+        
+        <fieldset id="figure-section" disabled>
+            <legend>
+                <label class="switch">
+                    <input type="checkbox" oninput="toggle(this, 'figure-section');">
+                    <span class="slider"></span>
+                </label>
+                Figure
+            </legend>
             
             <table>
                 <tr id="breasts-section">
