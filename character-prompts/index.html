@@ -5,7 +5,6 @@
     <title>Character Prompts</title>
     <style>
         body { font-family: sans-serif; max-width: 65em; margin: 1em auto; font-size: 14px; line-height: 1.5em; }
-        img { height: 300px; }
 
         #variants { display: flex; justify-content: center; align-items: center; gap: 4px; text-align: center; }
         #variants img { display: block; width: 100px; height: 50px; border: 1px solid black; }
@@ -37,11 +36,23 @@
         </tr>
     </table>
 
-    <img src="nano_example.png">
-    <img src="nano_example2.png">
-    <img src="nano_example3.png">
-
-    def: 18500
+    <div style="display: flex; gap: 1em;">
+        <img src="nano_example.png" style="flex: 1;">
+        <table>
+            <tr>
+                <th>Kingdom</th>
+                <td><span style="color: red;">Vuhrain</span></td>
+            </tr>
+            <tr>
+                <th>Profession</th>
+                <td>Gamer</td>
+            </tr>
+            <tr>
+                <th>Power LVL</th>
+                <td>18500</td>
+            </tr>
+        </table>
+    </div>
     
     <table>
         <tr>
@@ -60,5 +71,9 @@
 
     <br>
     https://gbf.wiki/Anila
+    <br>
+    <img src="nano_example.png">
+    <img src="nano_example2.png">
+    <img src="nano_example3.png">
 </body>
 </html>
