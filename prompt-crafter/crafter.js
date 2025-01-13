@@ -1,14 +1,20 @@
-// if (requestAiyabot)
-//     prompt += "/draw prompt:";
-// if (requestAiyabot) {
+// if (requestComments)
+//     prompt += "/* Quality */\n";
+// prompt += constructQualityPrompt(requestHighQuality) + ", ";
 
-//     if (requestNegatives)
-//         prompt += " negative_prompt:(ugly), ((watermark, hourglass)), ((mutilated)), out of frame, extra fingers, extra limbs, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), ((mutation)), ((deformed)), blurry, (bad anatomy), (bad proportions), (extra limbs), (disfigured), (malformed limbs), ((missing arms)), ((missing legs)), ((extra arms)), ((extra legs)), (fused fingers), (too many fingers), (long neck), bad_eyes, poorly_drawn_eyes";
-  
-//     prompt += ` width:${ requestWidth } height:${ requestHeight }`;
+// if (artistsPrompt !== "") {
+
+//     if (requestComments)
+//         prompt += "\n\n/* Artists */\n";
+    
+//     prompt += artistsPrompt + ", ";
 // }
 
-function getPromptInfo(allPackets) {
+// if (requestComments)
+//     prompt += "\n\n/* Character/scene description */\n";
+// prompt += description + ", ";
+
+function getPromptInfo(initPacket, promptPackets) {
 
     let promptInfo = {
         prompt: "",
@@ -17,16 +23,18 @@ function getPromptInfo(allPackets) {
         consideredHips:    true  //shotPrompt === "full body shot" || shotPrompt === "medium shot"
     };
 
-    const comments = true;
+    const comments = initPacket.format === "commented";
+
+    if (initPacket.format === "aiyabot")
+        prompt += "/draw prompt:";
     
-    for (const packet of allPackets) {
+    for (const packet of promptPackets) {
 
         switch (packet.packetName) {
 
             case "quality":
                 if (comments)
                     prompt += "\n\n/* Quality */\n";
-                console.log("QUALITY!");
                 break;
                 
             case "figure":
@@ -38,7 +46,6 @@ function getPromptInfo(allPackets) {
             case "artists":
                 if (comments)
                     prompt += "\n\n/* Artists */\n";
-                console.log("ARTISTS!");
                 break;
                 
             case "composition":
@@ -52,21 +59,13 @@ function getPromptInfo(allPackets) {
         }
     }
 
-    // if (requestComments)
-    //     prompt += "/* Quality */\n";
-    // prompt += constructQualityPrompt(requestHighQuality) + ", ";
+    // if (initPacket.format === "aiyabot") {
 
-    // if (artistsPrompt !== "") {
-
-    //     if (requestComments)
-    //         prompt += "\n\n/* Artists */\n";
-        
-    //     prompt += artistsPrompt + ", ";
+    //     if (requestNegatives)
+    //         prompt += " negative_prompt:(ugly), ((watermark, hourglass)), ((mutilated)), out of frame, extra fingers, extra limbs, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), ((mutation)), ((deformed)), blurry, (bad anatomy), (bad proportions), (extra limbs), (disfigured), (malformed limbs), ((missing arms)), ((missing legs)), ((extra arms)), ((extra legs)), (fused fingers), (too many fingers), (long neck), bad_eyes, poorly_drawn_eyes";
+      
+    //     prompt += ` width:${ requestWidth } height:${ requestHeight }`;
     // }
-
-    // if (requestComments)
-    //     prompt += "\n\n/* Character/scene description */\n";
-    // prompt += description + ", ";
     
     return promptInfo;
 }
@@ -100,7 +99,7 @@ function appendFigurePrompt(promptInfo, packet) {
     if (promptInfo.consideredBreasts)
         promptInfo.prompt += constructBreastsPrompt(packet.breasts, "view from front") + ", ";
 
-    if (promptInfo.consideredBelly) {
+    if (promptInfo.consideredBelly)
         promptInfo.prompt += constructBellyPrompt(packet.belly, "view from front") + ", ";
     
     if (promptInfo.consideredHips)
