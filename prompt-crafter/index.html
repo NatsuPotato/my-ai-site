@@ -27,6 +27,11 @@
 
             window.history.replaceState({}, '', "?cat=7");
 
+            setEnabled(document.getElementById("quality-section"), document.getElementById("quality-checkbox").checked);
+            setEnabled(document.getElementById("artists-section"), document.getElementById("artists-checkbox").checked);
+            setEnabled(document.getElementById("composition-section"), document.getElementById("composition-checkbox").checked);
+            setEnabled(document.getElementById("figure-section"), document.getElementById("figure-checkbox").checked);
+
             craft();
         }
         
@@ -170,10 +175,10 @@
             </p>
         </fieldset>
 
-        <fieldset id="quality-section" disabled>
+        <fieldset id="quality-section">
             <legend>
                 <label class="switch">
-                    <input type="checkbox" oninput="setEnabled(document.getElementById('quality-section'), this.checked);">
+                    <input type="checkbox" id="quality-checkbox" oninput="setEnabled(document.getElementById('quality-section'), this.checked);">
                     <span class="slider"></span>
                 </label>
                 Quality
@@ -188,10 +193,10 @@
 
         
 
-        <fieldset id="artists-section" disabled>
+        <fieldset id="artists-section">
             <legend>
                 <label class="switch">
-                    <input type="checkbox" oninput="setEnabled(document.getElementById('artists-section'), this.checked);">
+                    <input type="checkbox" id="artists-checkbox" oninput="setEnabled(document.getElementById('artists-section'), this.checked);">
                     <span class="slider"></span>
                 </label>
                 Artists<sup>(beta)</sup>
@@ -212,10 +217,10 @@
 
         
 
-        <fieldset id="composition-section" disabled>
+        <fieldset id="composition-section">
             <legend>
                 <label class="switch">
-                    <input type="checkbox" oninput="setEnabled(document.getElementById('composition-section'), this.checked);">
+                    <input type="checkbox" id="composition-checkbox" oninput="setEnabled(document.getElementById('composition-section'), this.checked);">
                     <span class="slider"></span>
                 </label>
                 Composition
@@ -273,10 +278,10 @@
 
 
         
-        <fieldset id="figure-section" disabled>
+        <fieldset id="figure-section">
             <legend>
                 <label class="switch">
-                    <input type="checkbox" oninput="setEnabled(document.getElementById('figure-section'), this.checked);">
+                    <input type="checkbox" id="figure-checkbox" oninput="setEnabled(document.getElementById('figure-section'), this.checked);">
                     <span class="slider"></span>
                 </label>
                 Figure
