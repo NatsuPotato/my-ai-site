@@ -9,7 +9,7 @@
         img { height: 240px; }
         
         .gallery { display: flex; justify-content: center; align-items: center; gap: 4px; text-align: center; }
-        .gallery img { display: block; height: 100px; border: 1px solid black; }
+        .gallery img { display: block; height: 100px; border: 1px solid black; margin: auto; }
     </style>
     <script type="module">
         const chars = [
@@ -30,8 +30,11 @@
             }
         ];
         
-        const params = new URLSearchParams(document.location.search);
-        const id = parseInt(params.get("id"));
+        const params  = new URLSearchParams(document.location.search);
+        const id      = parseInt(params.get("id"));
+        const variant = parseInt(params.get("variant"));
+
+        console.log(id);
 
         if (id != NaN) {
             
@@ -50,14 +53,14 @@
             }
     
             document.getElementById("main-insert").innerHTML += `
-                <h1>${ mainChar.name }</h1>
+                <h1>${ mainChar.name }${ variant === 0 ? "" : ` (${ mainChar.variants[variant].tag })` }</h1>
         
-                <img src="${ mainChar.image }">
+                <img src="${ mainChar.variants[variant].image }">
             
                 <table style="margin: 1em 0;">
                     <tr>
                         <th style="vertical-align: top; padding-right: 1em;">Prompt:</th>
-                        <td>${ mainChar.prompt }</td>
+                        <td>${ mainChar.variants[variant].prompt }</td>
                     </tr>
                 </table>
                 
@@ -70,12 +73,12 @@
             `;
         }
 
-        for (let id = 0; id < chars.length; id++) {
+        for (let i = 0; i < chars.length; i++) {
 
             document.getElementById("chars-insert").innerHTML += `
-                <a href="?id=${ id }&variant=0">
-                    <img src="${ chars[id].variants[0].image }">
-                    ${ chars[id].name }
+                <a href="?id=${ i }&variant=0">
+                    <img src="${ chars[i].variants[0].image }">
+                    ${ chars[i].name }
                 </a>
             `;
         }
