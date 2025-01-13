@@ -1,4 +1,4 @@
-function getPromptFromValues(allPackets) {
+function getPromptInfo(allPackets) {
 
     let prompt = "";
 
@@ -23,9 +23,21 @@ function getPromptFromValues(allPackets) {
                     "front view" //viewPrompt
                 );
                 break;
+
+            case "quality":
+                console.log("QUALITY!");
+                break;
+                
+            case "artists":
+                console.log("ARTISTS!");
+                break;
+                
+            case "composition":
+                console.log("COMPOSITION!");
+                break;
                 
             default:
-                console.log(packet.packetName);
+                console.log("Recieved unexpected packet: " + packet.packetName);
         }
     }
 
