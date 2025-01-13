@@ -78,16 +78,15 @@ function constructQualityPrompt(isHighQuality) {
 
 function appendCompositionPrompt(promptInfo, packet) {
 
+    // looking at viewer, (1girl, solo), (front view, medium shot, dutch angle:1.5),
+
     if (packet.isMale) {
-        promptInfo.prompt += packet.isPair ? "2boys" : "1boy";
+        promptInfo.prompt += packet.isPair ? "(2boys)" : "(1boy, solo)";
     } else {
-        promptInfo.prompt += packet.isPair ? "2girls" : "1girl";
+        promptInfo.prompt += packet.isPair ? "(2girls)" : "(1girl, solo)";
     }
     
-    promptInfo.prompt += ", (" + packet.viewPrompt + ":1.3), " + packet.shotPrompt + ", ";
-    
-    if (packet.isDutchAngle)
-        promptInfo.prompt += "dutch angle, ";
+    promptInfo.prompt += ", (" + packet.viewPrompt + ", " + packet.shotPrompt + (packet.isDutchAngle ? ", dutch angle:1.5), " : ":1.5), ");
 }
 
 function appendFigurePrompt(promptInfo, packet) {
