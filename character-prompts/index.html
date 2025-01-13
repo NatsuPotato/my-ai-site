@@ -15,16 +15,14 @@
         const chars = [
             {
                 name: "Nano",
-                prompt: "tall, mature, adult, white hair, (purple streaks in hair), long hair, twintails, purple eyes, (big white hoodie), black pleated miniskirt, big boobs",
-                image: "nano.png",
                 variants: [
                     {
-                        tag: "Beach",
-                        prompt: "",
+                        tag: null,
+                        prompt: "tall, mature, adult, white hair, (purple streaks in hair), long hair, twintails, purple eyes, (big white hoodie), black pleated miniskirt, big boobs",
                         image: "nano.png"
                     },
                     {
-                        tag: "Pajama",
+                        tag: "Beach",
                         prompt: "",
                         image: "nano.png"
                     }
@@ -32,30 +30,31 @@
             }
         ];
         
-        let params = new URLSearchParams(document.location.search);
-        let id = parseInt(params.get("id"));
+        const params = new URLSearchParams(document.location.search);
+        const id = parseInt(params.get("id"));
+        const mainChar = chars[0];
 
         let variants = "";
 
-        for (const variant of chars[0].variants) {
+        for (const variant of mainChar.variants) {
 
             variants += `
-                <a href="?id=0&variant=0">
+                <a href="?id=${ id }&variant=0">
                     <img src="${ variant.image }">
-                    ${ chars[0].name } (${ variant.tag })
+                    ${ mainChar.name }${ variant.tag == null ? "" : ` (${ variant.tag })` }
                 </a>
             `;
         }
 
         document.getElementById("main-insert").innerHTML += `
-            <h1>${ chars[0].name }</h1>
+            <h1>${ mainChar.name }</h1>
     
-            <img src="${ chars[0].image }">
+            <img src="${ mainChar.image }">
         
             <table style="margin: 1em 0;">
                 <tr>
                     <th style="vertical-align: top; padding-right: 1em;">Prompt:</th>
-                    <td>${ chars[0].prompt }</td>
+                    <td>${ mainChar.prompt }</td>
                 </tr>
             </table>
             
