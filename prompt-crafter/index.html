@@ -33,38 +33,41 @@
         function craft() {
             
             const promptInfo = getPromptFromValues(
-
-                document.getElementById("description").value,
-                document.getElementById("breasts-thickness").value,
-                document.getElementById("belly-thickness").value,
-                document.getElementById("hips-thickness").value,
-
-                document.getElementById("aiyabot").checked,
-                document.getElementById("width").value,
-                document.getElementById("height").value,
-                document.getElementById("negatives").checked,
-                document.getElementById("comments").checked,
-                document.getElementById("quality").checked,
-                
-                document.getElementById("gender").checked,
-                document.getElementById("char-count").checked,
-                document.getElementById("dutch-angle").checked,
-                document.querySelector('input[name="view"]:checked').value,
-                document.querySelector('input[name="shot"]:checked').value,
-
-                document.querySelector('input[name="artists"]:checked').value
+                [
+                    {
+                        packetName: "figure",
+                        breasts:    document.getElementById("breasts-thickness").value,
+                        belly:      document.getElementById("belly-thickness").value,
+                        hips:       document.getElementById("hips-thickness").value
+                    },
+                ]
             );
+            
+            // document.getElementById("description").value,
+
+            // document.getElementById("aiyabot").checked,
+            // document.getElementById("width").value,
+            // document.getElementById("height").value,
+            // document.getElementById("negatives").checked,
+            // document.getElementById("comments").checked,
+            // document.getElementById("quality").checked,
+            
+            // document.getElementById("gender").checked,
+            // document.getElementById("char-count").checked,
+            // document.getElementById("dutch-angle").checked,
+            // document.querySelector('input[name="view"]:checked').value,
+            // document.querySelector('input[name="shot"]:checked').value,
+
+            // document.querySelector('input[name="artists"]:checked').value
 
             document.getElementById("output").value = promptInfo.prompt;
 
             setEnabled(document.getElementById("breasts-section"),   promptInfo.consideredBreasts);
             setEnabled(document.getElementById("belly-section"),     promptInfo.consideredBelly);
             setEnabled(document.getElementById("hips-section"),      promptInfo.consideredHips);
-            setEnabled(document.getElementById("comments-section"),  promptInfo.consideredComments);
-            setEnabled(document.getElementById("negatives-section"), promptInfo.consideredNegatives);
         }
         
-        function copy() {
+        function copyPromptOutput() {
 
             var output = document.getElementById("output");
             
@@ -129,14 +132,16 @@
     <textarea readonly id="output" style="padding: 1em; resize: none; font-size: smaller; border: 1px solid black;"></textarea>
 
     <div>
-        <button onclick="copy();" id="copy-button" style="width: 100%; padding: 1em;">Copy Prompt</button>
+        <button onclick="copyPromptOutput();" id="copy-button" style="width: 100%; padding: 1em;">Copy Prompt</button>
         this place is in construction rn
 
         <div style="font-size: smaller; text-align: right; margin-top: 4px;">View the <a href="https://github.com/BlueBunnex/prompt-crafter">Github</a>.</div>
-        
-        <h3>Describe your character/scene</h3>
 
-        <textarea id="description" style="padding: 1em; resize: vertical; border: 1px solid black; width: 50%; min-width: 30em; box-sizing: border-box; height: 12em;" oninput="craft()"></textarea>
+        <fieldset>
+            <legend>Describe your character/scene</legend>
+
+            <textarea id="description" style="padding: 1em; resize: vertical; border: 1px solid black; width: 50%; min-width: 30em; box-sizing: border-box; height: 12em;" oninput="craft()"></textarea>
+        </fieldset>
 
         <fieldset>
             <legend>Format</legend>
@@ -148,7 +153,9 @@
             <input type="radio" id="format3" name="format" oninput="craft()" value="">
             <label for="format3">Aiyabot command</label>
     
-            <br>
+            <br><br>
+
+            Aiyabot stuff<br>
     
             <label for="width">width:</label>
             <input type="text" oninput="craft()" value="640" id="width">
