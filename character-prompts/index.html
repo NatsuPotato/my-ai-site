@@ -32,39 +32,43 @@
         
         const params = new URLSearchParams(document.location.search);
         const id = parseInt(params.get("id"));
-        const mainChar = chars[id];
 
-        let variants = "";
-
-        for (let i = 0; i < mainChar.variants.length; i++) {
-
-            variants += `
-                <a href="?id=${ id }&variant=${ i }">
-                    <img src="${ mainChar.variants[i].image }">
-                    ${ mainChar.name }${ i === 0 ? "" : ` (${ mainChar.variants[i].tag })` }
-                </a>
+        if (id != NaN) {
+            
+            const mainChar = chars[id];
+    
+            let variants = "";
+    
+            for (let i = 0; i < mainChar.variants.length; i++) {
+    
+                variants += `
+                    <a href="?id=${ id }&variant=${ i }">
+                        <img src="${ mainChar.variants[i].image }">
+                        ${ mainChar.name }${ i === 0 ? "" : ` (${ mainChar.variants[i].tag })` }
+                    </a>
+                `;
+            }
+    
+            document.getElementById("main-insert").innerHTML += `
+                <h1>${ mainChar.name }</h1>
+        
+                <img src="${ mainChar.image }">
+            
+                <table style="margin: 1em 0;">
+                    <tr>
+                        <th style="vertical-align: top; padding-right: 1em;">Prompt:</th>
+                        <td>${ mainChar.prompt }</td>
+                    </tr>
+                </table>
+                
+                <div style="border: 1px solid red; padding: 8px 8px 4px; background: #ffccd4;">
+                    <div style="text-align: center; font-weight: 700;">This character has multiple variants.</div>
+                    <div class="gallery">
+                        ${ variants }
+                    </div>
+                </div>
             `;
         }
-
-        document.getElementById("main-insert").innerHTML += `
-            <h1>${ mainChar.name }</h1>
-    
-            <img src="${ mainChar[0].image }">
-        
-            <table style="margin: 1em 0;">
-                <tr>
-                    <th style="vertical-align: top; padding-right: 1em;">Prompt:</th>
-                    <td>${ mainChar[0].prompt }</td>
-                </tr>
-            </table>
-            
-            <div style="border: 1px solid red; padding: 8px 8px 4px; background: #ffccd4;">
-                <div style="text-align: center; font-weight: 700;">This character has multiple variants.</div>
-                <div class="gallery">
-                    ${ variants }
-                </div>
-            </div>
-        `;
 
         for (let id = 0; id < chars.length; id++) {
 
