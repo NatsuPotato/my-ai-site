@@ -24,13 +24,28 @@
             // params.set("baz", 3);
             // params.toString(); // "foo=1&bar=2&baz=3"
 
-
             window.history.replaceState({}, '', "?cat=7");
 
             setEnabled(document.getElementById("quality-section"), document.getElementById("quality-checkbox").checked);
             setEnabled(document.getElementById("artists-section"), document.getElementById("artists-checkbox").checked);
             setEnabled(document.getElementById("composition-section"), document.getElementById("composition-checkbox").checked);
             setEnabled(document.getElementById("figure-section"), document.getElementById("figure-checkbox").checked);
+
+            getQualityInfo().forEach(function(quality, i) {
+
+                document.getElementById("quality-section") += `
+                    <input type="radio" id="quality${ i }" name="quality" oninput="craft()" value="${ i }">
+                    <label for="quality${ i }">${ quality.name }</label>
+                `;
+            });
+
+            getArtistsInfo().forEach(function(artist, i) {
+
+                document.getElementById("quality-section") += `
+                    <input type="radio" id="artist{ i }" name="artists" oninput="craft()" value="${ i }">
+                    <label for="artist{ i }">${ artist.name }</label>
+                `;
+            });
 
             craft();
         }
@@ -39,9 +54,23 @@
 
             let promptPackets = [];
 
-            // document.getElementById("quality").checked
-            
             // document.querySelector('input[name="artists"]:checked').value
+
+            if (!document.getElementById("quality-section").classList.contains("disabled")) {
+
+                promptPackets.push({
+                    packetName: "quality",
+                    index:      0
+                });
+            }
+
+            if (!document.getElementById("artists-section").classList.contains("disabled")) {
+
+                promptPackets.push({
+                    packetName: "artists",
+                    index:      0
+                });
+            }
 
             if (!document.getElementById("composition-section").classList.contains("disabled")) {
                 
@@ -153,12 +182,16 @@
 
         <div style="font-size: smaller; text-align: right; margin-top: 4px;">View the <a href="https://github.com/BlueBunnex/prompt-crafter">Github</a>.</div>
 
+
+        
         <fieldset>
             <legend>Describe your character/scene</legend>
 
             <textarea id="description" style="padding: 1em; resize: vertical; border: 1px solid black; width: 50%; min-width: 30em; box-sizing: border-box; height: 12em;" oninput="craft()"></textarea>
         </fieldset>
 
+
+            
         <fieldset>
             <legend>Format</legend>
     
@@ -188,6 +221,8 @@
             </div>
         </fieldset>
 
+        
+
         <fieldset id="quality-section">
             <legend>
                 <label class="switch" oninput="craft()">
@@ -197,11 +232,6 @@
                 Quality<sup>unimplemented</sup>
             </legend>
             
-            <label class="switch">
-                <input type="checkbox" id="quality" oninput="craft()">
-                <span class="slider"></span>
-            </label>
-            Use extra strong quality prompt
         </fieldset>
 
         
@@ -214,18 +244,7 @@
                 </label>
                 Artists<sup>unimplemented</sup>
             </legend>
-
-            <!--
-                previous -> c.cu (artist), kakuteki (artist), nekocrispy (artist), stunnerpony (artist), wamudraws (artist)
-                needs testing (soft) -> blushyspicy(artist), spellsX(artist), c.cu(artist),
-            -->
-    
-            <input type="radio" id="artists1" name="artists" oninput="craft()" value="blushyspicy(artist), ((cutesexyrobutts)), icecake, sexyo, spellsX(artist), c.cu(artist)">
-            <label for="artists1">Realistic</label>
-            <input type="radio" id="artists2" name="artists" oninput="craft()" value="blushyspicy(artist), ((cutesexyrobutts)), spellsX(artist), wamudraws (artist)">
-            <label for="artists2">Sleek (Humans)</label>
-            <input type="radio" id="artists3" name="artists" oninput="craft()" value="blushyspicy(artist), ((cutesexyrobutts)), spellsX(artist), nekocrispy (artist), stunnerpony (artist), wamudraws (artist)">
-            <label for="artists3">Sleek (Anthro)</label>
+            
         </fieldset>
 
         
