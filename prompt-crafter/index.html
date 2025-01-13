@@ -63,16 +63,15 @@
             
             const promptInfo = getPromptInfo(
                 {
-                    format: document.querySelector('input[name="format"]:checked').value
+                    format: document.querySelector('input[name="format"]:checked').value,
+                    width:  document.getElementById("width").value,
+                    height: document.getElementById("height").value
                 },
                 promptPackets
             );
             
             // document.getElementById("description").value,
 
-            // document.getElementById("aiyabot").checked,
-            // document.getElementById("width").value,
-            // document.getElementById("height").value,
             // document.getElementById("negatives").checked,
             // document.getElementById("comments").checked,
             // document.getElementById("quality").checked,
@@ -84,6 +83,8 @@
             setEnabled(document.getElementById("breasts-section"), promptInfo.consideredBreasts);
             setEnabled(document.getElementById("belly-section"),   promptInfo.consideredBelly);
             setEnabled(document.getElementById("hips-section"),    promptInfo.consideredHips);
+
+            document.getElementById("aiyabot-section").style.display = document.querySelector('input[name="format"]:checked').value === "aiyabot" ? "block" : "none";
         }
         
         function copyPromptOutput() {
@@ -145,7 +146,8 @@
 
     <div>
         <button onclick="copyPromptOutput();" id="copy-button" style="width: 100%; padding: 1em;">Copy Prompt</button>
-        this place is in construction rn
+        
+        <p style="color: orange;">this place is in construction rn!!</p>
 
         <div style="font-size: smaller; text-align: right; margin-top: 4px;">View the <a href="https://github.com/BlueBunnex/prompt-crafter">Github</a>.</div>
 
@@ -165,23 +167,23 @@
             <input type="radio" id="format3" name="format" oninput="craft()" value="aiyabot">
             <label for="format3">Aiyabot command</label>
     
-            <br><br>
-
-            Aiyabot stuff<br>
-    
-            <label for="width">width:</label>
-            <input type="text" oninput="craft()" value="640" id="width">
-            and
-            <label for="height">height:</label>
-            <input type="text" oninput="craft()" value="800" id="height">
-            
-            <p id="negatives-section" style="padding-left: 1em;">
-                <label class="switch">
-                    <input type="checkbox" id="negatives" oninput="craft()" checked>
-                    <span class="slider"></span>
-                </label>
-                Include negative prompt
-            </p>
+            <div id="aiyabot-section">
+                <p>
+                    <label for="width">width:</label>
+                    <input type="text" oninput="craft()" value="640" id="width">
+                    and
+                    <label for="height">height:</label>
+                    <input type="text" oninput="craft()" value="800" id="height">
+                </p>
+                
+                <p id="negatives-section" style="padding-left: 1em;">
+                    <label class="switch">
+                        <input type="checkbox" id="negatives" oninput="craft()" checked>
+                        <span class="slider"></span>
+                    </label>
+                    Include negative prompt
+                </p>
+            </div>
         </fieldset>
 
         <fieldset id="quality-section">
