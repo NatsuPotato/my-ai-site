@@ -6,10 +6,10 @@
     <style>
         body { font-family: sans-serif; max-width: 65em; margin: 1em auto; font-size: 14px; line-height: 1.5em; }
 
-        img { height: 240px; }
+        img { height: 300px; margin: auto; display: block; }
         
         .gallery { display: flex; justify-content: center; align-items: center; gap: 4px; text-align: center; }
-        .gallery img { display: block; height: 100px; border: 1px solid black; margin: auto; }
+        .gallery img { display: block; height: 140px; border: 1px solid black; margin: auto; }
     </style>
     <script type="module">
         const chars = [
@@ -48,18 +48,6 @@
             
             const mainChar = chars[id];
     
-            let variants = "";
-    
-            for (let i = 0; i < mainChar.variants.length; i++) {
-    
-                variants += `
-                    <a href="?id=${ id }&variant=${ i }">
-                        <img src="${ mainChar.variants[i].image }">
-                        ${ mainChar.name }${ i === 0 ? "" : ` (${ mainChar.variants[i].tag })` }
-                    </a>
-                `;
-            }
-    
             document.getElementById("main-insert").innerHTML += `
                 <h1>${ mainChar.name }${ variant === 0 ? "" : ` (${ mainChar.variants[variant].tag })` }</h1>
         
@@ -71,14 +59,31 @@
                         <td>${ mainChar.variants[variant].prompt }</td>
                     </tr>
                 </table>
-                
-                <div style="border: 1px solid red; padding: 8px 8px 4px; background: #ffccd4;">
-                    <div style="text-align: center; font-weight: 700;">This character has multiple variants.</div>
-                    <div class="gallery">
-                        ${ variants }
-                    </div>
-                </div>
             `;
+
+            if (mainChar.variants.length > 1) {
+
+                let variants = "";
+    
+                for (let i = 0; i < mainChar.variants.length; i++) {
+        
+                    variants += `
+                        <a href="?id=${ id }&variant=${ i }">
+                            <img src="${ mainChar.variants[i].image }">
+                            ${ mainChar.name }${ i === 0 ? "" : ` (${ mainChar.variants[i].tag })` }
+                        </a>
+                    `;
+                }
+                
+                document.getElementById("main-insert").innerHTML += `
+                    <div style="border: 1px solid red; padding: 8px 8px 4px; background: #ffccd4;">
+                        <div style="text-align: center; font-weight: 700;">This character has multiple variants.</div>
+                        <div class="gallery">
+                            ${ variants }
+                        </div>
+                    </div>
+                `;
+            }
         }
 
         for (let i = 0; i < chars.length; i++) {
@@ -95,7 +100,7 @@
 <body>
     https://gbf.wiki/Anila
     <div id="main-insert"></div>
-    <br>
+    <h2>All characters</h2>
     <div id="chars-insert" class="gallery"></div>
 </body>
 </html>
