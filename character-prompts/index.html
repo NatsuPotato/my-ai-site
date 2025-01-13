@@ -34,9 +34,7 @@
         const id      = parseInt(params.get("id"));
         const variant = parseInt(params.get("variant"));
 
-        console.log(id);
-
-        if (id != NaN) {
+        if (!isNaN(id)) {
             
             const mainChar = chars[id];
     
@@ -87,6 +85,7 @@
 <body>
     https://gbf.wiki/Anila
     <div id="main-insert"></div>
+    <br>
     <div id="chars-insert" class="gallery"></div>
 </body>
 </html>
