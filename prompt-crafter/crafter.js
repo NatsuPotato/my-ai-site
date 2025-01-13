@@ -26,7 +26,7 @@ function getPromptInfo(initPacket, promptPackets) {
     const comments = initPacket.format === "commented";
 
     if (initPacket.format === "aiyabot")
-        prompt += "/draw prompt:";
+        promptInfo.prompt += "/draw prompt:";
     
     for (const packet of promptPackets) {
 
@@ -34,23 +34,23 @@ function getPromptInfo(initPacket, promptPackets) {
 
             case "quality":
                 if (comments)
-                    prompt += "\n\n/* Quality */\n";
+                    promptInfo.prompt += "\n\n/* Quality */\n";
                 break;
                 
             case "figure":
                 if (comments)
-                    prompt += "\n\n/* Figure */\n";
+                    promptInfo.prompt += "\n\n/* Figure */\n";
                 appendFigurePrompt(promptInfo, packet);
                 break;
                 
             case "artists":
                 if (comments)
-                    prompt += "\n\n/* Artists */\n";
+                    promptInfo.prompt += "\n\n/* Artists */\n";
                 break;
                 
             case "composition":
                 if (comments)
-                    prompt += "\n\n/* Composition */\n";
+                    promptInfo.prompt += "\n\n/* Composition */\n";
                 appendCompositionPrompt(promptInfo, packet);
                 break;
                 
@@ -59,13 +59,13 @@ function getPromptInfo(initPacket, promptPackets) {
         }
     }
 
-    // if (initPacket.format === "aiyabot") {
+    if (initPacket.format === "aiyabot") {
 
-    //     if (requestNegatives)
-    //         prompt += " negative_prompt:(ugly), ((watermark, hourglass)), ((mutilated)), out of frame, extra fingers, extra limbs, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), ((mutation)), ((deformed)), blurry, (bad anatomy), (bad proportions), (extra limbs), (disfigured), (malformed limbs), ((missing arms)), ((missing legs)), ((extra arms)), ((extra legs)), (fused fingers), (too many fingers), (long neck), bad_eyes, poorly_drawn_eyes";
+        // if (requestNegatives)
+        //     prompt += " negative_prompt:(ugly), ((watermark, hourglass)), ((mutilated)), out of frame, extra fingers, extra limbs, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), ((mutation)), ((deformed)), blurry, (bad anatomy), (bad proportions), (extra limbs), (disfigured), (malformed limbs), ((missing arms)), ((missing legs)), ((extra arms)), ((extra legs)), (fused fingers), (too many fingers), (long neck), bad_eyes, poorly_drawn_eyes";
       
-    //     prompt += ` width:${ requestWidth } height:${ requestHeight }`;
-    // }
+        prompt += ` width:${ initPacket.width } height:${ initPacket.height }`;
+    }
     
     return promptInfo;
 }
