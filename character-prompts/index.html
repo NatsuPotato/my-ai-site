@@ -7,17 +7,26 @@
         body { font-family: sans-serif; max-width: 50em; margin: auto; font-size: 14px; line-height: 1.5em; }
         th { text-align: left; width: 10em; vertical-align: top; }
         img { height: 300px; }
+
+        #variants { display: flex; align-items: center; gap: 4px; text-align: center; }
+        #variants img { display: block; width: 100px; height: 50px; border: 1px solid black; }
     </style>
+    <script type="module">
+        let params = new URLSearchParams(document.location.search);
+        let id = parseInt(params.get("id"));
+
+        console.log(id);
+    </script>
 </head>
 <body>
     <h1>Nano</h1>
+    
     <strong>This character has multiple variants.</strong>
-    <div style="display: flex; align-items: center; gap: 4px; text-align: center;">
-        <div>
-            <img style="height: 50px; width: 100px; border: 1px solid black;" src="https://gbf.wiki/images/thumb/b/b0/Npc_m_3040027000_01.jpg/200px-Npc_m_3040027000_01.jpg">
-            <br>
+    <div id="variants">
+        <a href="">
+            <img src="https://gbf.wiki/images/thumb/b/b0/Npc_m_3040027000_01.jpg/200px-Npc_m_3040027000_01.jpg">
             Anila
-        </div>
+        </a>
     </div>
 
     <table>
