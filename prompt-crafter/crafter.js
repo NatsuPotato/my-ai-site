@@ -32,38 +32,22 @@ function getPromptInfo(initPacket, promptPackets) {
     
     for (const packet of promptPackets) {
 
+        if (comments)
+            promptInfo.prompt += "/* " + packet.packetName.substring(0, 1).toUpperCase() + packet.packetName.substring(1) + " */\n";
+
         switch (packet.packetName) {
 
-            case "description":
-                if (comments)
-                    promptInfo.prompt += "/* Description */\n";
-                promptInfo.prompt += packet.description + ", ";
-                break;
+            case "description": promptInfo.prompt += packet.description + ", "; break;
 
-            case "quality":
-                if (comments)
-                    promptInfo.prompt += "/* Quality */\n";
-                break;
+            case "quality":     break;
                 
-            case "figure":
-                if (comments)
-                    promptInfo.prompt += "/* Figure */\n";
-                appendFigurePrompt(promptInfo, packet);
-                break;
+            case "figure":      appendFigurePrompt(promptInfo, packet); break;
                 
-            case "artists":
-                if (comments)
-                    promptInfo.prompt += "/* Artists */\n";
-                break;
+            case "artists":     break;
                 
-            case "composition":
-                if (comments)
-                    promptInfo.prompt += "/* Composition */\n";
-                appendCompositionPrompt(promptInfo, packet);
-                break;
+            case "composition": appendCompositionPrompt(promptInfo, packet); break;
                 
-            default:
-                console.log("Recieved unexpected packet: " + packet.packetName);
+            default:            console.log("Recieved unexpected packet: " + packet.packetName);
         }
 
         if (comments)
