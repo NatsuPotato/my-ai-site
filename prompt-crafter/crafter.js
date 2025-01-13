@@ -34,6 +34,12 @@ function getPromptInfo(initPacket, promptPackets) {
 
         switch (packet.packetName) {
 
+            case "description":
+                if (comments)
+                    promptInfo.prompt += "\n\n/* Description */\n";
+                promptInfo.prompt += packet.description + ", ";
+                break;
+
             case "quality":
                 if (comments)
                     promptInfo.prompt += "\n\n/* Quality */\n";
