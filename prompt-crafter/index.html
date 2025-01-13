@@ -39,6 +39,22 @@
 
             let promptPackets = [];
 
+            // document.getElementById("quality").checked
+            
+            // document.querySelector('input[name="artists"]:checked').value
+
+            if (!document.getElementById("composition-section").classList.contains("disabled")) {
+                
+                promptPackets.push({
+                    packetName:   "composition",
+                    isMale:       document.getElementById("gender").checked,
+                    isPair:       document.getElementById("char-count").checked,
+                    isDutchAngle: document.getElementById("dutch-angle").checked,
+                    viewPrompt:   document.querySelector('input[name="view"]:checked').value,
+                    shotPrompt:   document.querySelector('input[name="shot"]:checked').value
+                });
+            }
+
             promptPackets.push({
                 packetName:  "description",
                 description: document.getElementById("description").value
@@ -54,17 +70,7 @@
                 });
             }
 
-            if (!document.getElementById("composition-section").classList.contains("disabled")) {
-                
-                promptPackets.push({
-                    packetName:   "composition",
-                    isMale:       document.getElementById("gender").checked,
-                    isPair:       document.getElementById("char-count").checked,
-                    isDutchAngle: document.getElementById("dutch-angle").checked,
-                    viewPrompt:   document.querySelector('input[name="view"]:checked').value,
-                    shotPrompt:   document.querySelector('input[name="shot"]:checked').value
-                });
-            }
+            
             
             const promptInfo = getPromptInfo(
                 {
@@ -75,9 +81,6 @@
                 },
                 promptPackets
             );
-            
-            // document.getElementById("quality").checked,
-            // document.querySelector('input[name="artists"]:checked').value
 
             document.getElementById("output").value = promptInfo.prompt;
 
