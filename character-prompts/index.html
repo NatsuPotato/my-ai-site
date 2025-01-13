@@ -23,7 +23,7 @@
         let params = new URLSearchParams(document.location.search);
         let id = parseInt(params.get("id"));
 
-        document.write(`
+        document.getElementById("main-insert").innerHTML += `
             <h1>${ chars[0].name }</h1>
     
             <img src="${ chars[0].image }">
@@ -45,9 +45,16 @@
                 </div>
             </div>
         `);
+
+        for (const char of chars) {
+
+            document.getElementById("chars-insert").innerHTML += char.name;
+        }
     </script>
 </head>
 <body>
     https://gbf.wiki/Anila
+    <div id="main-insert"></div>
+    <div id="chars-insert"></div>
 </body>
 </html>
