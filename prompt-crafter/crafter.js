@@ -1,6 +1,14 @@
-function getPromptInfo(allPackets) {
+// if (requestAiyabot)
+//     prompt += "/draw prompt:";
+// if (requestAiyabot) {
 
-    let prompt = "";
+//     if (requestNegatives)
+//         prompt += " negative_prompt:(ugly), ((watermark, hourglass)), ((mutilated)), out of frame, extra fingers, extra limbs, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), ((mutation)), ((deformed)), blurry, (bad anatomy), (bad proportions), (extra limbs), (disfigured), (malformed limbs), ((missing arms)), ((missing legs)), ((extra arms)), ((extra legs)), (fused fingers), (too many fingers), (long neck), bad_eyes, poorly_drawn_eyes";
+  
+//     prompt += ` width:${ requestWidth } height:${ requestHeight }`;
+// }
+
+function getPromptInfo(allPackets) {
 
     let promptInfo = {
         prompt: "",
@@ -8,43 +16,41 @@ function getPromptInfo(allPackets) {
         consideredBelly:   true, //shotPrompt !== "head shot",
         consideredHips:    true  //shotPrompt === "full body shot" || shotPrompt === "medium shot"
     };
+
+    const comments = true;
     
     for (const packet of allPackets) {
 
         switch (packet.packetName) {
-                
-            case "figure":
-                // if (requestComments)
-                //     prompt += "\n\n/* Figure */\n";
-                prompt += constructFigurePrompt(
-                    promptInfo.consideredBreasts, packet.breasts,
-                    promptInfo.consideredBelly,   packet.belly,
-                    promptInfo.consideredHips,    packet.hips,
-                    "front view" //viewPrompt
-                );
-                break;
 
             case "quality":
+                if (comments)
+                    prompt += "\n\n/* Quality */\n";
                 console.log("QUALITY!");
                 break;
                 
+            case "figure":
+                if (comments)
+                    prompt += "\n\n/* Figure */\n";
+                appendFigurePrompt(promptInfo, packet);
+                break;
+                
             case "artists":
+                if (comments)
+                    prompt += "\n\n/* Artists */\n";
                 console.log("ARTISTS!");
                 break;
                 
             case "composition":
-                console.log("COMPOSITION!");
+                if (comments)
+                    prompt += "\n\n/* Composition */\n";
+                appendCompositionPrompt(promptInfo, packet);
                 break;
                 
             default:
                 console.log("Recieved unexpected packet: " + packet.packetName);
         }
     }
-
-    // requestComments = !requestAiyabot && requestComments;
-
-    // if (requestAiyabot)
-    //     prompt += "/draw prompt:";
 
     // if (requestComments)
     //     prompt += "/* Quality */\n";
@@ -57,26 +63,10 @@ function getPromptInfo(allPackets) {
         
     //     prompt += artistsPrompt + ", ";
     // }
-    
-    // if (requestComments)
-    //     prompt += "\n\n/* Composition */\n";
-    // prompt += constructCompositionPrompt(isMale, isTwoCharacters, isDutchAngle, viewPrompt, shotPrompt) + ", ";
 
     // if (requestComments)
     //     prompt += "\n\n/* Character/scene description */\n";
     // prompt += description + ", ";
-
-    // figure
-
-    // if (requestAiyabot) {
-
-    //     if (requestNegatives)
-    //         prompt += " negative_prompt:(ugly), ((watermark, hourglass)), ((mutilated)), out of frame, extra fingers, extra limbs, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), ((mutation)), ((deformed)), blurry, (bad anatomy), (bad proportions), (extra limbs), (disfigured), (malformed limbs), ((missing arms)), ((missing legs)), ((extra arms)), ((extra legs)), (fused fingers), (too many fingers), (long neck), bad_eyes, poorly_drawn_eyes";
-      
-    //     prompt += ` width:${ requestWidth } height:${ requestHeight }`;
-    // }
-
-    promptInfo.prompt = prompt;
     
     return promptInfo;
 }
@@ -91,56 +81,30 @@ function constructQualityPrompt(isHighQuality) {
     }
 }
 
-function constructCompositionPrompt(isMale, isTwoCharacters, isDutchAngle, viewPrompt, shotPrompt) {
+function appendCompositionPrompt(promptInfo, packet) {
 
-    let construct = "";
-    
-    if (isMale) {
-        construct += isTwoCharacters ? "2boys" : "1boy";
+    if (packet.isMale) {
+        promptInfo.prompt += packet.isPair ? "2boys" : "1boy";
     } else {
-        construct += isTwoCharacters ? "2girls" : "1girl";
+        promptInfo.prompt += packet.isPair ? "2girls" : "1girl";
     }
     
-    construct += ", (" + viewPrompt + ":1.3)";
-    construct += ", " + shotPrompt;
+    promptInfo.prompt += ", (" + packet.viewPrompt + ":1.3), " + packet.shotPrompt + ", ";
     
-    if (isDutchAngle)
-        construct += ", dutch angle";
-
-    return construct;
+    if (packet.isDutchAngle)
+        promptInfo.prompt += "dutch angle, ";
 }
 
-function constructFigurePrompt(
-        showBreasts, breastsValue,
-        showBelly,   bellyValue,
-        showHips,    hipsValue,
-        viewPrompt
-    ) {
+function appendFigurePrompt(promptInfo, packet) {
     
-    if (showBreasts || showBelly || showHips) {
+    if (promptInfo.consideredBreasts)
+        promptInfo.prompt += constructBreastsPrompt(packet.breasts, "view from front") + ", ";
 
-        let construct = "";
-        
-        if (showBreasts)
-            construct += constructBreastsPrompt(breastsValue, viewPrompt);
+    if (promptInfo.consideredBelly) {
+        promptInfo.prompt += constructBellyPrompt(packet.belly, "view from front") + ", ";
     
-        if (showBelly) {
-    
-            if (showBreasts)
-                construct += ", ";
-            
-            construct += constructBellyPrompt(bellyValue, viewPrompt);
-        }
-        
-        if (showHips)
-            construct += ", " + constructHipsPrompt(hipsValue, viewPrompt);
-
-        return construct;
-        
-    } else {
-        
-        return "";
-    }
+    if (promptInfo.consideredHips)
+        promptInfo.prompt += constructHipsPrompt(packet.hips, "view from front") + ", ";
 }
 
 // c.cu, kakuteki, kipteitei, cookiescat, blushyspicy, nekocrispy, stunnerpony, inu-sama, the dogsmith, tsukasawa takamatsu
