@@ -10,11 +10,24 @@
 //     promptInfo.prompt += artistsPrompt + ", ";
 // }
 
-// if (requestComments)
-//     prompt += "\n\n/* Character/scene description */\n";
-// prompt += description + ", ";
+function getQualityInfo() {
 
-// maybe also provide a "getArtistsInfo" or something for initializing the crafter ui
+    return [
+        { name: "Simple",  prompt: "masterpiece, best quality, amazing quality, perfect hands, absurdres, 8k" },
+        { name: "Complex", prompt: "best quality, high rating, (high rating), absurd res, high res, detailed, masterpiece, detailed face, intricate detail, sophisticated detail, exquisite detail, absurd resolution, correct anatomy, 8k, (highly detailed face), highly detailed skin texture, gorgeous, perfect hands" }
+    ];
+}
+
+function getArtistsInfo() {
+
+    return [
+        { name: "test1",          prompt: "c.cu (artist), kakuteki (artist), nekocrispy (artist), stunnerpony (artist), wamudraws (artist)" },
+        { name: "test2 (Soft?)",  prompt: "blushyspicy(artist), spellsX(artist), c.cu(artist)" },
+        { name: "Realistic",      prompt: "blushyspicy(artist), ((cutesexyrobutts)), icecake, sexyo, spellsX(artist), c.cu(artist)" },
+        { name: "Sleek (Humans)", prompt: "blushyspicy(artist), ((cutesexyrobutts)), spellsX(artist), wamudraws (artist)" },
+        { name: "Sleek (Anthro)", prompt: "blushyspicy(artist), ((cutesexyrobutts)), spellsX(artist), nekocrispy (artist), stunnerpony (artist), wamudraws (artist)" }
+    ];
+}
 
 function getPromptInfo(initPacket, promptPackets) {
 
@@ -39,11 +52,11 @@ function getPromptInfo(initPacket, promptPackets) {
 
             case "description": promptInfo.prompt += packet.description + ", "; break;
 
-            case "quality":     break;
+            case "quality":     console.log(packet.index); break;
                 
             case "figure":      appendFigurePrompt(promptInfo, packet); break;
                 
-            case "artists":     break;
+            case "artists":     console.log(packet.index); break;
                 
             case "composition": appendCompositionPrompt(promptInfo, packet); break;
                 
@@ -64,16 +77,6 @@ function getPromptInfo(initPacket, promptPackets) {
     }
     
     return promptInfo;
-}
-
-
-function constructQualityPrompt(isHighQuality) {
-
-    if (isHighQuality) {
-        return "best quality, high rating, (high rating), absurd res, high res, detailed, masterpiece, detailed face, intricate detail, sophisticated detail, exquisite detail, absurd resolution, correct anatomy, 8k, (highly detailed face), highly detailed skin texture, gorgeous, perfect hands";
-    } else {
-        return "masterpiece, best quality, amazing quality, perfect hands, absurdres, 8k";
-    }
 }
 
 function appendCompositionPrompt(promptInfo, packet) {
