@@ -36,35 +36,38 @@ function getPromptInfo(initPacket, promptPackets) {
 
             case "description":
                 if (comments)
-                    promptInfo.prompt += "\n\n/* Description */\n";
+                    promptInfo.prompt += "/* Description */\n";
                 promptInfo.prompt += packet.description + ", ";
                 break;
 
             case "quality":
                 if (comments)
-                    promptInfo.prompt += "\n\n/* Quality */\n";
+                    promptInfo.prompt += "/* Quality */\n";
                 break;
                 
             case "figure":
                 if (comments)
-                    promptInfo.prompt += "\n\n/* Figure */\n";
+                    promptInfo.prompt += "/* Figure */\n";
                 appendFigurePrompt(promptInfo, packet);
                 break;
                 
             case "artists":
                 if (comments)
-                    promptInfo.prompt += "\n\n/* Artists */\n";
+                    promptInfo.prompt += "/* Artists */\n";
                 break;
                 
             case "composition":
                 if (comments)
-                    promptInfo.prompt += "\n\n/* Composition */\n";
+                    promptInfo.prompt += "/* Composition */\n";
                 appendCompositionPrompt(promptInfo, packet);
                 break;
                 
             default:
                 console.log("Recieved unexpected packet: " + packet.packetName);
         }
+
+        if (comments)
+            promptInfo.prompt += "\n\n";
     }
 
     if (initPacket.format === "aiyabot") {
