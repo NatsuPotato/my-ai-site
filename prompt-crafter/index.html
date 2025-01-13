@@ -31,17 +31,20 @@
         }
         
         function craft() {
+
+            let allPackets = [];
+
+            if (!document.getElementById("figure-section").classList.contains("disabled")) {
+                
+                allPackets.push({
+                    packetName: "figure",
+                    breasts:    document.getElementById("breasts-thickness").value,
+                    belly:      document.getElementById("belly-thickness").value,
+                    hips:       document.getElementById("hips-thickness").value
+                });
+            }
             
-            const promptInfo = getPromptFromValues(
-                [
-                    {
-                        packetName: "figure",
-                        breasts:    document.getElementById("breasts-thickness").value,
-                        belly:      document.getElementById("belly-thickness").value,
-                        hips:       document.getElementById("hips-thickness").value
-                    },
-                ]
-            );
+            const promptInfo = getPromptInfo(allPackets);
             
             // document.getElementById("description").value,
 
@@ -62,9 +65,9 @@
 
             document.getElementById("output").value = promptInfo.prompt;
 
-            setEnabled(document.getElementById("breasts-section"),   promptInfo.consideredBreasts);
-            setEnabled(document.getElementById("belly-section"),     promptInfo.consideredBelly);
-            setEnabled(document.getElementById("hips-section"),      promptInfo.consideredHips);
+            setEnabled(document.getElementById("breasts-section"), promptInfo.consideredBreasts);
+            setEnabled(document.getElementById("belly-section"),   promptInfo.consideredBelly);
+            setEnabled(document.getElementById("hips-section"),    promptInfo.consideredHips);
         }
         
         function copyPromptOutput() {
@@ -82,15 +85,6 @@
                 document.getElementById("copy-button").innerHTML = "Copy Prompt";
             }, 2000);
         }
-
-        function toggle(source, id) {
-
-            if (source.checked) {
-                document.getElementById(id).removeAttribute("disabled");
-            } else {
-                document.getElementById(id).setAttribute("disabled", "");
-            }
-        }
     </script>
 
     <style>
@@ -98,7 +92,7 @@
         svg { vertical-align: middle; }
         
         fieldset { margin: 1em 0; padding: 2em 1em; border: 4px solid #eee; }
-        fieldset[disabled] { opacity: 40%; }
+        fieldset.disabled { opacity: 40%; }
         legend { background: #eee; border-radius: 100px; padding: 0.5em 1em; }
 
         input[type="radio"] { display: none; }
@@ -121,15 +115,19 @@
         input:checked + .slider { background-color: #2196F3; }
         input:checked + .slider:before { transform: translateX(20px); }
 
+        #output { width: 100%; box-sizing: border-box; padding: 1em; height: calc(100vh - 2em); resize: none; font-size: smaller; border: 1px solid black; position: sticky; top: 1em; }
+
         @media (orientation: portrait) {
             body { grid-template-columns: auto; grid-template-rows: auto auto; align-items: center; min-height: auto; padding-bottom: 10em; }
-            #output { min-height: 12em; }
+            #output { max-height: 12em; }
         }
     </style>
 </head>
 <body onload="init();">
 
-    <textarea readonly id="output" style="padding: 1em; resize: none; font-size: smaller; border: 1px solid black;"></textarea>
+    <div>
+        <textarea readonly id="output"></textarea>
+    </div>
 
     <div>
         <button onclick="copyPromptOutput();" id="copy-button" style="width: 100%; padding: 1em;">Copy Prompt</button>
@@ -146,7 +144,7 @@
         <fieldset>
             <legend>Format</legend>
     
-            <input type="radio" id="format1" name="format" oninput="craft()" value="">
+            <input type="radio" id="format1" name="format" oninput="craft()" value="" checked>
             <label for="format1">Inline</label>
             <input type="radio" id="format2" name="format" oninput="craft()" value="">
             <label for="format2">Commented</label>
@@ -175,7 +173,7 @@
         <fieldset id="quality-section" disabled>
             <legend>
                 <label class="switch">
-                    <input type="checkbox" oninput="toggle(this, 'quality-section');">
+                    <input type="checkbox" oninput="setEnabled(document.getElementById('quality-section'), this.checked);">
                     <span class="slider"></span>
                 </label>
                 Quality
@@ -193,7 +191,7 @@
         <fieldset id="artists-section" disabled>
             <legend>
                 <label class="switch">
-                    <input type="checkbox" oninput="toggle(this, 'artists-section');">
+                    <input type="checkbox" oninput="setEnabled(document.getElementById('artists-section'), this.checked);">
                     <span class="slider"></span>
                 </label>
                 Artists<sup>(beta)</sup>
@@ -217,7 +215,7 @@
         <fieldset id="composition-section" disabled>
             <legend>
                 <label class="switch">
-                    <input type="checkbox" oninput="toggle(this, 'composition-section');">
+                    <input type="checkbox" oninput="setEnabled(document.getElementById('composition-section'), this.checked);">
                     <span class="slider"></span>
                 </label>
                 Composition
@@ -278,7 +276,7 @@
         <fieldset id="figure-section" disabled>
             <legend>
                 <label class="switch">
-                    <input type="checkbox" oninput="toggle(this, 'figure-section');">
+                    <input type="checkbox" oninput="setEnabled(document.getElementById('figure-section'), this.checked);">
                     <span class="slider"></span>
                 </label>
                 Figure
