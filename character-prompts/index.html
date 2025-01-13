@@ -6,6 +6,8 @@
     <style>
         body { font-family: sans-serif; max-width: 65em; margin: 1em auto; font-size: 14px; line-height: 1.5em; }
 
+        img { height: 240px; }
+        
         #variants { display: flex; justify-content: center; align-items: center; gap: 4px; text-align: center; }
         #variants img { display: block; width: 100px; height: 50px; border: 1px solid black; }
 
@@ -36,8 +38,10 @@
         </tr>
     </table>
 
-    <div style="display: flex; gap: 1em;">
-        <img src="nano_example.png" style="flex: 1;">
+    <div style="display: flex; gap: 1em; margin: 1em 0; align-items: start;">
+        <div style="flex: 1;"></div>
+        <img src="nano_example.png">
+        <div style="flex: 1;"></div>
         <table>
             <tr>
                 <th>Kingdom</th>
