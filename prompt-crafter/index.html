@@ -37,11 +37,11 @@
         
         function craft() {
 
-            let allPackets = [];
+            let promptPackets = [];
 
             if (!document.getElementById("figure-section").classList.contains("disabled")) {
                 
-                allPackets.push({
+                promptPackets.push({
                     packetName: "figure",
                     breasts:    document.getElementById("breasts-thickness").value,
                     belly:      document.getElementById("belly-thickness").value,
@@ -51,7 +51,7 @@
 
             if (!document.getElementById("composition-section").classList.contains("disabled")) {
                 
-                allPackets.push({
+                promptPackets.push({
                     packetName:   "composition",
                     isMale:       document.getElementById("gender").checked,
                     isPair:       document.getElementById("char-count").checked,
@@ -61,7 +61,12 @@
                 });
             }
             
-            const promptInfo = getPromptInfo(allPackets);
+            const promptInfo = getPromptInfo(
+                {
+                    format: document.querySelector('input[name="format"]:checked').value
+                },
+                promptPackets
+            );
             
             // document.getElementById("description").value,
 
@@ -153,11 +158,11 @@
         <fieldset>
             <legend>Format</legend>
     
-            <input type="radio" id="format1" name="format" oninput="craft()" value="" checked>
+            <input type="radio" id="format1" name="format" oninput="craft()" value="inline" checked>
             <label for="format1">Inline</label>
-            <input type="radio" id="format2" name="format" oninput="craft()" value="">
+            <input type="radio" id="format2" name="format" oninput="craft()" value="commented">
             <label for="format2">Commented</label>
-            <input type="radio" id="format3" name="format" oninput="craft()" value="">
+            <input type="radio" id="format3" name="format" oninput="craft()" value="aiyabot">
             <label for="format3">Aiyabot command</label>
     
             <br><br>
