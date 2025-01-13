@@ -1,18 +1,20 @@
 // if (requestComments)
-//     prompt += "/* Quality */\n";
-// prompt += constructQualityPrompt(requestHighQuality) + ", ";
+//     promptInfo.prompt += "/* Quality */\n";
+// promptInfo.prompt += constructQualityPrompt(requestHighQuality) + ", ";
 
 // if (artistsPrompt !== "") {
 
 //     if (requestComments)
-//         prompt += "\n\n/* Artists */\n";
+//         promptInfo.prompt += "\n\n/* Artists */\n";
     
-//     prompt += artistsPrompt + ", ";
+//     promptInfo.prompt += artistsPrompt + ", ";
 // }
 
 // if (requestComments)
 //     prompt += "\n\n/* Character/scene description */\n";
 // prompt += description + ", ";
+
+// maybe also provide a "getArtistsInfo" or something for initializing the crafter ui
 
 function getPromptInfo(initPacket, promptPackets) {
 
@@ -61,10 +63,11 @@ function getPromptInfo(initPacket, promptPackets) {
 
     if (initPacket.format === "aiyabot") {
 
-        // if (requestNegatives)
-        //     prompt += " negative_prompt:(ugly), ((watermark, hourglass)), ((mutilated)), out of frame, extra fingers, extra limbs, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), ((mutation)), ((deformed)), blurry, (bad anatomy), (bad proportions), (extra limbs), (disfigured), (malformed limbs), ((missing arms)), ((missing legs)), ((extra arms)), ((extra legs)), (fused fingers), (too many fingers), (long neck), bad_eyes, poorly_drawn_eyes";
+        if (initPacket.useNegatives)
+            prompt += "bad anatomy, bad hands, text, missing finger, extra digits, fewer digits, mutated hands, mutated fingers, poorly drawn face, mutation, deformed face, ugly, bad proportions, bad anatomy, bad hands, text, error, missing fingers, cropped, censored, pixelart, ugly, sketch, lineart, monochrome, duplicate, morbid, mutilated, mutated, missing limbs, missing limb, monster, logo, print, cropped, (worst quality, low quality:1.4), extra fingers, fewer fingers, (bad eyes:1.2), (misfigured pupils:1.2), (bad clothing:1.3), (nonsensical backgrounds:1.2), (bad backgrounds:1.2), (bad shadows:1.2), (bad anatomy:1.1), jpeg artifacts, signature, watermark, username, blurry, out of frame, screenshot, game cg, user interface, source request, commentary request, english commentary, symbol-only commentary, commentary, commission, bad composition, inaccurate eyes, (extra arms:1.2)";
+            // previous one: " negative_prompt:(ugly), ((watermark, hourglass)), ((mutilated)), out of frame, extra fingers, extra limbs, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), ((mutation)), ((deformed)), blurry, (bad anatomy), (bad proportions), (extra limbs), (disfigured), (malformed limbs), ((missing arms)), ((missing legs)), ((extra arms)), ((extra legs)), (fused fingers), (too many fingers), (long neck), bad_eyes, poorly_drawn_eyes";
       
-        prompt += ` width:${ initPacket.width } height:${ initPacket.height }`;
+        promptInfo.prompt += ` width:${ initPacket.width } height:${ initPacket.height }`;
     }
     
     return promptInfo;
@@ -97,13 +100,13 @@ function appendCompositionPrompt(promptInfo, packet) {
 function appendFigurePrompt(promptInfo, packet) {
     
     if (promptInfo.consideredBreasts)
-        promptInfo.prompt += constructBreastsPrompt(packet.breasts, "view from front") + ", ";
+        promptInfo.prompt += constructBreastsPrompt(packet.breasts) + ", ";
 
     if (promptInfo.consideredBelly)
-        promptInfo.prompt += constructBellyPrompt(packet.belly, "view from front") + ", ";
+        promptInfo.prompt += constructBellyPrompt(packet.belly) + ", ";
     
     if (promptInfo.consideredHips)
-        promptInfo.prompt += constructHipsPrompt(packet.hips, "view from front") + ", ";
+        promptInfo.prompt += constructHipsPrompt(packet.hips) + ", ";
 }
 
 // c.cu, kakuteki, kipteitei, cookiescat, blushyspicy, nekocrispy, stunnerpony, inu-sama, the dogsmith, tsukasawa takamatsu
@@ -125,18 +128,15 @@ function getSize(value) {
 }
 
 // value is in range [1, 100]
-function constructBreastsPrompt(value, viewPrompt) {
+function constructBreastsPrompt(value) {
 
     if (value == 1)
         return "(flat chest)"; // "no breasts"?
 
-    if (viewPrompt === "view from behind")
-        return "(" + getSize(value) + " breasts from behind)";
-
     return "(" + getSize(value) + " breasts:1.3)";
 }
 
-function constructBellyPrompt(value, viewPrompt) {
+function constructBellyPrompt(value) {
 
     if (value == 1)
         return "(slim, no belly, hourglass figure, narrow waist)";
@@ -147,9 +147,6 @@ function constructBellyPrompt(value, viewPrompt) {
     if (value < 16)
         return "(chubby)";
 
-    if (viewPrompt === "view from behind")
-        return "(" + getSize(value) + " belly from behind)";
-
     let extra = "";
 
     if (value > 80)
@@ -158,17 +155,12 @@ function constructBellyPrompt(value, viewPrompt) {
     return extra + "(" + getSize(value) + " belly:1.3)";
 }
 
-function constructHipsPrompt(value, viewPrompt) {
-
-    let main  = getSize(value) + " hips";
-
-    if (viewPrompt === "side view" || viewPrompt === "view from behind")
-        main = getSize(value) + " ass, " + main;
+function constructHipsPrompt(value) {
     
     let extra = "";
 
-    if (value >= 60 && viewPrompt !== "view from behind")
+    if (value >= 60)
         extra += "(thick thighs:1." + parseInt(value / 10 - 5) + "), ";
     
-    return extra + "(" + main + (viewPrompt === "view from behind" ? ":1.6)" : ":1.3)");
+    return extra + "(" + getSize(value) + " hips, " + getSize(value) + " ass" + ":1.3)";
 }
