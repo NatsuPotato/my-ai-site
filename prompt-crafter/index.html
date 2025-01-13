@@ -151,7 +151,7 @@
         <div style="font-size: smaller; text-align: right; margin-top: 4px;">View the <a href="https://github.com/BlueBunnex/prompt-crafter">Github</a>.</div>
 
         <fieldset>
-            <legend>Describe your character/scene<sup>wip</sup></legend>
+            <legend>Describe your character/scene</legend>
 
             <textarea id="description" style="padding: 1em; resize: vertical; border: 1px solid black; width: 50%; min-width: 30em; box-sizing: border-box; height: 12em;" oninput="craft()"></textarea>
         </fieldset>
@@ -167,6 +167,8 @@
             <label for="format3">Aiyabot command</label>
     
             <div id="aiyabot-section" style="padding-left: 1em;">
+                <br>
+                
                 <label for="width">width:</label>
                 <input type="text" oninput="craft()" value="640" id="width">
                 and
@@ -189,7 +191,7 @@
                     <input type="checkbox" id="quality-checkbox" oninput="setEnabled(document.getElementById('quality-section'), this.checked);">
                     <span class="slider"></span>
                 </label>
-                Quality<sup>wip</sup>
+                Quality<sup>unimplemented</sup>
             </legend>
             
             <label class="switch">
@@ -207,11 +209,11 @@
                     <input type="checkbox" id="artists-checkbox" oninput="setEnabled(document.getElementById('artists-section'), this.checked);">
                     <span class="slider"></span>
                 </label>
-                Artists<sup>wip</sup>
+                Artists<sup>unimplemented</sup>
             </legend>
 
             <!--
-                old -> c.cu (artist), kakuteki (artist), nekocrispy (artist), stunnerpony (artist), wamudraws (artist)
+                previous -> c.cu (artist), kakuteki (artist), nekocrispy (artist), stunnerpony (artist), wamudraws (artist)
                 needs testing (soft) -> blushyspicy(artist), spellsX(artist), c.cu(artist),
             -->
     
