@@ -41,7 +41,7 @@
 
             getArtistsInfo().forEach(function(artist, i) {
 
-                document.getElementById("quality-section") += `
+                document.getElementById("artists-section") += `
                     <input type="radio" id="artist{ i }" name="artists" oninput="craft()" value="${ i }">
                     <label for="artist{ i }">${ artist.name }</label>
                 `;
@@ -54,13 +54,11 @@
 
             let promptPackets = [];
 
-            // document.querySelector('input[name="artists"]:checked').value
-
             if (!document.getElementById("quality-section").classList.contains("disabled")) {
 
                 promptPackets.push({
                     packetName: "quality",
-                    index:      0
+                    index:      document.querySelector('input[name="quality"]:checked').value
                 });
             }
 
@@ -68,7 +66,7 @@
 
                 promptPackets.push({
                     packetName: "artists",
-                    index:      0
+                    index:      document.querySelector('input[name="artists"]:checked').value
                 });
             }
 
