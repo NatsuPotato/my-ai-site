@@ -8,17 +8,18 @@ function getQualityPresets() {
 
 function getFigurePresets() {
 
-    // figure setting presets like "Vore," "Pregnant," "Hourglass," and of course "Thicc Girl"
+    // need "Vore" (vore belly:1.5) "Pregnant"
     
-    // fat, obese, big belly, deep navel, large round breasts
-    // fat neck, fat face, (vore belly:1.5)
+    // fat neck, fat face
     // chubby
-    // (large belly, round belly, stuffed belly, pot belly, belly sticking out, fat)
     // thick thighs
     // "small", "slightly big", "big", "slightly huge", "huge", "slightly massive", "massive", "hyper" ]; // giant?
 
     return [
-        { name: "Hourglass",  prompt: "(slim, no belly, narrow waist)" }
+        { name: "Hourglass",  prompt: "(slim, no belly, narrow waist)" },
+        { name: "Fat 1", prompt: "(fat, obese, big belly, deep navel, large round breasts)" },
+        { name: "Fat 2", prompt: "(large belly, round belly, stuffed belly, pot belly, belly sticking out, fat)" },
+        { name: "Pregnant", prompt: "(pregnant, large breasts, wide hips)" }
     ];
 }
 
@@ -67,7 +68,7 @@ function getPrompt(initPacket, promptPackets) {
 
             case "quality":     prompt += getQualityPresets()[packet.index].prompt + ", "; break;
                 
-            case "figure":      prompt += getFigurePresets()[packet.index].prompt + ", " break;
+            case "figure":      prompt += getFigurePresets()[packet.index].prompt + ", "; break;
             
             case "artists":     prompt += getArtistsPresets()[packet.index].prompt + ", "; break;
                 
