@@ -79,13 +79,15 @@ function getPromptInfo(initPacket, promptPackets) {
             promptInfo.prompt += "\n\n";
     }
 
-    if (promptInfo.prompt.length >= 2)
-        promptInfo.prompt = promptInfo.prompt.substring(0, promptInfo.prompt.length - 2);
+    if (promptInfo.prompt.length >= 2) {
+
+        promptInfo.prompt = promptInfo.prompt.substring(0, promptInfo.prompt.length - (comments ? 4 : 2));
+    }
 
     if (initPacket.format === "aiyabot") {
 
         if (initPacket.useNegatives)
-            promptInfo.prompt += "negative_prompt:bad anatomy, bad hands, text, missing finger, extra digits, fewer digits, mutated hands, mutated fingers, poorly drawn face, mutation, deformed face, ugly, bad proportions, bad anatomy, bad hands, text, error, missing fingers, cropped, censored, pixelart, ugly, sketch, lineart, monochrome, duplicate, morbid, mutilated, mutated, missing limbs, missing limb, monster, logo, print, cropped, (worst quality, low quality:1.4), extra fingers, fewer fingers, (bad eyes:1.2), (misfigured pupils:1.2), (bad clothing:1.3), (nonsensical backgrounds:1.2), (bad backgrounds:1.2), (bad shadows:1.2), (bad anatomy:1.1), jpeg artifacts, signature, watermark, username, blurry, out of frame, screenshot, game cg, user interface, source request, commentary request, english commentary, symbol-only commentary, commentary, commission, bad composition, inaccurate eyes, (extra arms:1.2)";
+            promptInfo.prompt += " negative_prompt:bad anatomy, bad hands, text, missing finger, extra digits, fewer digits, mutated hands, mutated fingers, poorly drawn face, mutation, deformed face, ugly, bad proportions, bad anatomy, bad hands, text, error, missing fingers, cropped, censored, pixelart, ugly, sketch, lineart, monochrome, duplicate, morbid, mutilated, mutated, missing limbs, missing limb, monster, logo, print, cropped, (worst quality, low quality:1.4), extra fingers, fewer fingers, (bad eyes:1.2), (misfigured pupils:1.2), (bad clothing:1.3), (nonsensical backgrounds:1.2), (bad backgrounds:1.2), (bad shadows:1.2), (bad anatomy:1.1), jpeg artifacts, signature, watermark, username, blurry, out of frame, screenshot, game cg, user interface, source request, commentary request, english commentary, symbol-only commentary, commentary, commission, bad composition, inaccurate eyes, (extra arms:1.2)";
             // previous one: " negative_prompt:(ugly), ((watermark, hourglass)), ((mutilated)), out of frame, extra fingers, extra limbs, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), ((mutation)), ((deformed)), blurry, (bad anatomy), (bad proportions), (extra limbs), (disfigured), (malformed limbs), ((missing arms)), ((missing legs)), ((extra arms)), ((extra legs)), (fused fingers), (too many fingers), (long neck), bad_eyes, poorly_drawn_eyes";
       
         promptInfo.prompt += ` width:${ initPacket.width } height:${ initPacket.height }`;
