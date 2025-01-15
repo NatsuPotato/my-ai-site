@@ -27,11 +27,11 @@
             window.history.replaceState({}, '', "?cat=7");
 
             setEnabled(document.getElementById("quality-section"), document.getElementById("quality-checkbox").checked);
+            setEnabled(document.getElementById("figure-section"), document.getElementById("figure-checkbox").checked);
             setEnabled(document.getElementById("artists-section"), document.getElementById("artists-checkbox").checked);
             setEnabled(document.getElementById("composition-section"), document.getElementById("composition-checkbox").checked);
-            setEnabled(document.getElementById("figure-section"), document.getElementById("figure-checkbox").checked);
 
-            getQualityInfo().forEach(function(quality, i) {
+            getQualityPresets().forEach(function(quality, i) {
 
                 document.getElementById("quality-section").innerHTML += `
                     <input type="radio" id="quality${ i }" name="quality" oninput="craft()" value="${ i }"${ i == 0 ? "checked" : "" }>
@@ -39,7 +39,15 @@
                 `;
             });
 
-            getArtistsInfo().forEach(function(artist, i) {
+            getFigurePresets().forEach(function(figure, i) {
+
+                document.getElementById("figure-section").innerHTML += `
+                    <input type="radio" id="figure${ i }" name="figure" oninput="craft()" value="${ i }"${ i == 0 ? "checked" : "" }>
+                    <label for="figure${ i }">${ figure.name }</label>
+                `;
+            });
+
+            getArtistsPresets().forEach(function(artist, i) {
 
                 document.getElementById("artists-section").innerHTML += `
                     <input type="radio" id="artist${ i }" name="artists" oninput="craft()" value="${ i }"${ i == 0 ? "checked" : "" }>
@@ -62,14 +70,6 @@
                 });
             }
 
-            if (!document.getElementById("artists-section").classList.contains("disabled")) {
-
-                promptPackets.push({
-                    packetName: "artists",
-                    index:      document.querySelector('input[name="artists"]:checked').value
-                });
-            }
-
             if (!document.getElementById("composition-section").classList.contains("disabled")) {
                 
                 promptPackets.push({
@@ -82,24 +82,28 @@
                 });
             }
 
-            promptPackets.push({
-                packetName:  "description",
-                description: document.getElementById("description").value
-            });
+            if (!document.getElementById("artists-section").classList.contains("disabled")) {
+
+                promptPackets.push({
+                    packetName: "artists",
+                    index:      document.querySelector('input[name="artists"]:checked').value
+                });
+            }
 
             if (!document.getElementById("figure-section").classList.contains("disabled")) {
                 
                 promptPackets.push({
                     packetName: "figure",
-                    breasts:    document.getElementById("breasts-thickness").value,
-                    belly:      document.getElementById("belly-thickness").value,
-                    hips:       document.getElementById("hips-thickness").value
+                    index:      document.querySelector('input[name="figure"]:checked').value
                 });
             }
 
+            promptPackets.push({
+                packetName:  "description",
+                description: document.getElementById("description").value
+            });
             
-            
-            const promptInfo = getPromptInfo(
+            const prompt = getPromptInfo(
                 {
                     format: document.querySelector('input[name="format"]:checked').value,
                     width:  document.getElementById("width").value,
@@ -109,11 +113,7 @@
                 promptPackets
             );
 
-            document.getElementById("output").value = promptInfo.prompt;
-
-            setEnabled(document.getElementById("breasts-section"), promptInfo.consideredBreasts);
-            setEnabled(document.getElementById("belly-section"),   promptInfo.consideredBelly);
-            setEnabled(document.getElementById("hips-section"),    promptInfo.consideredHips);
+            document.getElementById("output").value = prompt;
 
             document.getElementById("aiyabot-section").style.display = document.querySelector('input[name="format"]:checked').value === "aiyabot" ? "block" : "none";
         }
@@ -227,9 +227,20 @@
                     <input type="checkbox" id="quality-checkbox" oninput="setEnabled(document.getElementById('quality-section'), this.checked);">
                     <span class="slider"></span>
                 </label>
-                Quality<sup>wip</sup>
+                Quality
             </legend>
-            
+        </fieldset>
+
+
+
+        <fieldset id="figure-section">
+            <legend>
+                <label class="switch" oninput="craft()">
+                    <input type="checkbox" id="figure-checkbox" oninput="setEnabled(document.getElementById('figure-section'), this.checked);">
+                    <span class="slider"></span>
+                </label>
+                Figure<sup>wip</sup>
+            </legend>
         </fieldset>
 
         
@@ -242,7 +253,6 @@
                 </label>
                 Artists<sup>wip</sup>
             </legend>
-            
         </fieldset>
 
         
@@ -304,39 +314,6 @@
             <label for="shot3">medium shot</label>
             <input type="radio" id="shot4" name="shot" oninput="craft()" value="full body shot">
             <label for="shot4">full body shot</label>
-        </fieldset>
-
-
-        
-        <fieldset id="figure-section">
-            <legend>
-                <label class="switch" oninput="craft()">
-                    <input type="checkbox" id="figure-checkbox" oninput="setEnabled(document.getElementById('figure-section'), this.checked);">
-                    <span class="slider"></span>
-                </label>
-                Figure
-            </legend>
-            
-            <table>
-                <tr id="breasts-section">
-                    <td>Breasts:</td>
-                    <td>
-                        <input id="breasts-thickness" type="range" min="1" max="100" value="20" oninput="craft()">
-                    </td>
-                </tr>
-                <tr id="belly-section">
-                    <td style="min-width: 4em;">Belly:</td>
-                    <td>
-                        <input id="belly-thickness" type="range" min="1" max="100" value="20" oninput="craft()">
-                    </td>
-                </tr>
-                <tr id="hips-section">
-                    <td>Hips:</td>
-                    <td>
-                        <input id="hips-thickness" type="range" min="1" max="100" value="20" oninput="craft()">
-                    </td>
-                </tr>
-            </table>
         </fieldset>
     </div>
     
