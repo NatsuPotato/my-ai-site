@@ -56,7 +56,7 @@
                     },
                     {
                         tag: "Date Night",
-                        prompt: "",
+                        prompt: "masterpiece, best quality, amazing quality, perfect hands, absurdres, 8k, (slim, exposed midriff, view from above), long brown wavy hair, neko, brown cat ears, milf, looking at viewer, smile, happy, flustered, standing, black dress, (makeup:0.5), outside, night, dark, (huge flabby breasts, cleavage, round boobs, firm boobs, gigantic breasts, hyper breasts, huge breasts, mommy milkers:1.5)",
                         image: "rebecca_date.png"
                     },
                 ]
@@ -96,7 +96,7 @@
                     variants += `
                         <a href="?id=${ id }&variant=${ i }">
                             <img src="${ mainChar.variants[i].image }">
-                            ${ mainChar.name }${ i === 0 ? "" : ` (${ mainChar.variants[i].tag })` }
+                            ${ mainChar.name }${ i === 0 ? "" : `<br>(${ mainChar.variants[i].tag })` }
                         </a>
                     `;
                 }
