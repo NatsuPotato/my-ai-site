@@ -16,15 +16,25 @@
             }
         }
 
-        function init() {
+        function loadFromUrl() {
 
-            // let params = new URLSearchParams(document.location.search);
-            // let name = params.get("name"); // is the string "Jonathan"
+            let params = new URLSearchParams(document.location.search);
+            
             // let age = parseInt(params.get("age"), 10); // is the number 18
             // params.set("baz", 3);
             // params.toString(); // "foo=1&bar=2&baz=3"
 
-            window.history.replaceState({}, '', "?cat=7");
+            document.getElementById("description").value = params.get("desc");
+        }
+
+        function pushToUrl() {
+
+            window.history.replaceState({}, '', "?desc=" + document.getElementById("description").value);
+        }
+
+        function init() {
+
+            loadFromUrl();
 
             setEnabled(document.getElementById("quality-section"), document.getElementById("quality-checkbox").checked);
             setEnabled(document.getElementById("figure-section"), document.getElementById("figure-checkbox").checked);
@@ -59,6 +69,8 @@
         }
         
         function craft() {
+
+            pushToUrl();
 
             let promptPackets = [];
 
@@ -106,7 +118,7 @@
             const prompt = getPrompt(
                 {
                     format: document.querySelector('input[name="format"]:checked').value,
-                    width:  document.getElementById("dimension").checked ? document.getElementById("width").value : 0,
+                    width:  document.getElementById("dimension").checked ? document.getElementById("width").value : null,
                     height: document.getElementById("height").value,
                     useNegatives: document.getElementById("negatives").checked
                 },
@@ -201,7 +213,7 @@
                 <br>
 
                 <label class="switch">
-                    <input type="checkbox" id="dimension" oninput="craft()" checked>
+                    <input type="checkbox" id="dimension" oninput="craft()">
                     <span class="slider"></span>
                 </label>
                 Set
@@ -214,7 +226,7 @@
                 <br><br>
                 
                 <label class="switch">
-                    <input type="checkbox" id="negatives" oninput="craft()" checked>
+                    <input type="checkbox" id="negatives" oninput="craft()">
                     <span class="slider"></span>
                 </label>
                 Include negative prompt
