@@ -106,7 +106,7 @@
             const prompt = getPrompt(
                 {
                     format: document.querySelector('input[name="format"]:checked').value,
-                    width:  document.getElementById("width").value,
+                    width:  document.getElementById("dimension").checked ? document.getElementById("width").value : 0,
                     height: document.getElementById("height").value,
                     useNegatives: document.getElementById("negatives").checked
                 },
@@ -186,7 +186,7 @@
         </fieldset>
 
 
-            
+        
         <fieldset>
             <legend>Format</legend>
     
@@ -199,7 +199,12 @@
     
             <div id="aiyabot-section" style="padding-left: 1em;">
                 <br>
-                
+
+                <label class="switch">
+                    <input type="checkbox" id="dimension" oninput="craft()" checked>
+                    <span class="slider"></span>
+                </label>
+                Set
                 <label for="width">width:</label>
                 <input type="text" oninput="craft()" value="640" id="width">
                 and
