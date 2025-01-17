@@ -19,7 +19,8 @@ function getFigurePresets() {
         { name: "Hourglass",  prompt: "(slim, no belly, narrow waist)" },
         { name: "Fat 1", prompt: "(fat, obese, big belly, deep navel, large round breasts)" },
         { name: "Fat 2", prompt: "(large belly, round belly, stuffed belly, pot belly, belly sticking out, fat)" },
-        { name: "Pregnant", prompt: "(pregnant, large breasts, wide hips)" }
+        { name: "Pregnant", prompt: "(pregnant, large breasts, wide hips)" },
+        { name: "Busty", prompt: "(gigantic breasts, perky breasts)" }
     ];
 }
 
