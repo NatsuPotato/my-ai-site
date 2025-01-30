@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>My AI Site</title>
     <style>
-        body { display: flex; justify-content: center; align-content: stretch; flex-direction: column; gap: 1em; min-height: 100vh; width: 40em; margin: auto; }
+        body { display: flex; color: #eee; justify-content: center; align-items: center; min-height: 100vh; background-position: center; background-size: cover; background-image: url('https://images.pexels.com/photos/1146134/pexels-photo-1146134.jpeg?cs=srgb&dl=pexels-felixmittermeier-1146134.jpg&fm=jpg'); }
 
         fieldset { border: 1px solid #ddd; }
         th { text-align: left; padding-right: 1em; vertical-align: top; }
@@ -14,32 +14,38 @@
     </style>
 </head>
 <body>
-    <a class="button" href="prompt-crafter">Prompt Crafter</a>
-    <a class="button" href="character-prompts">Character Prompts<sup>beta</sup></a>
-    <small>View the <a href="https://github.com/BlueBunnex/prompt-crafter">Github</a>.</small>
-    <small>Coming soon... Gen Depot! An invite-only place to store your prompts and generated images.</small>
-    <!-- hostinger / have discord embed contain prompt info and image -->
 
-    <fieldset>
-        <legend>TropicalFun's Suggested Workflow</legend>
-        <table>
-            <tr>
-                <th>Model:</th>
-                <td><a href="https://huggingface.co/mariaWitch/ExperimentalBiggerMerges/tree/main">BBW Aurora Borealis (SD 1.5)</a></td>
-            </tr>
-            <tr>
-                <th>Sampling method:</th>
-                <td>Euler a</td>
-            </tr>
-            <tr>
-                <th>Dimensions:</th>
-                <td>512x640 or 512x768</td>
-            </tr>
-            <tr>
-                <th>Negative:</th>
-                <td>bad anatomy, bad hands, text, missing finger, extra digits, fewer digits, mutated hands, mutated fingers, poorly drawn face, mutation, deformed face, ugly, bad proportions, bad anatomy, bad hands, text, error, missing fingers, cropped, censored, pixelart, ugly, sketch, lineart, monochrome, duplicate, morbid, mutilated, mutated, missing limbs, missing limb, monster, logo, print, cropped, (worst quality, low quality:1.4), extra fingers, fewer fingers, (bad eyes:1.2), (misfigured pupils:1.2), (bad clothing:1.3), (nonsensical backgrounds:1.2), (bad backgrounds:1.2), (bad shadows:1.2), (bad anatomy:1.1), jpeg artifacts, signature, watermark, username, blurry, out of frame, screenshot, game cg, user interface, source request, commentary request, english commentary, symbol-only commentary, commentary, commission, bad composition, inaccurate eyes, (extra arms:1.2)</td>
-            </tr>
-        </table>
-    </fieldset>
+    <div style="display: flex; padding: 1em; background: #000a; border-radius: 0.5em; flex-direction: column; align-content: stretch; gap: 1em; width: 40em;">
+
+        <a class="button" href="prompt-crafter">Prompt Crafter</a>
+        <a class="button" href="character-prompts">Character Prompts<sup>beta</sup></a>
+        <small>View the <a href="https://github.com/BlueBunnex/prompt-crafter">Github</a>.</small>
+        <small>Coming soon... Gen Depot! An invite-only place to store your prompts and generated images.</small>
+        <!-- hostinger / have discord embed contain prompt info and image -->
+    
+        <fieldset>
+            <legend>TropicalFun's Suggested Workflow</legend>
+            <table>
+                <tr>
+                    <th>Model:</th>
+                    <td><a href="https://huggingface.co/mariaWitch/ExperimentalBiggerMerges/tree/main">BBW Aurora Borealis (SD 1.5)</a></td>
+                </tr>
+                <tr>
+                    <th>Sampling method:</th>
+                    <td>Euler a</td>
+                </tr>
+                <tr>
+                    <th>Dimensions:</th>
+                    <td>512x640 or 512x768</td>
+                </tr>
+                <tr>
+                    <th>Negative:</th>
+                    <td>bad anatomy, bad hands, text, missing finger, extra digits, fewer digits, mutated hands, mutated fingers, poorly drawn face, mutation, deformed face, ugly, bad proportions, bad anatomy, bad hands, text, error, missing fingers, cropped, censored, pixelart, ugly, sketch, lineart, monochrome, duplicate, morbid, mutilated, mutated, missing limbs, missing limb, monster, logo, print, cropped, (worst quality, low quality:1.4), extra fingers, fewer fingers, (bad eyes:1.2), (misfigured pupils:1.2), (bad clothing:1.3), (nonsensical backgrounds:1.2), (bad backgrounds:1.2), (bad shadows:1.2), (bad anatomy:1.1), jpeg artifacts, signature, watermark, username, blurry, out of frame, screenshot, game cg, user interface, source request, commentary request, english commentary, symbol-only commentary, commentary, commission, bad composition, inaccurate eyes, (extra arms:1.2)</td>
+                </tr>
+            </table>
+        </fieldset>
+        
+    </div>
+    
 </body>
 </html>
